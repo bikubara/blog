@@ -5,13 +5,14 @@
 }
 body{background:#a8a8e7;margin:0px;}
 
-header{position:relative;height:35;width:100%;left:0px;
+header{position:absolute;height:35;width:100%;
+    left:0px;top:0px;
     text-align:center;padding:15px;
        background:green;margin-left:none;
 }
 
 
-footer{position:relative;text-align:center;
+footer{position:absolute;text-align:center;
      bottom:0px;left:0px;
         background:white;padding:15px;
         width:100%;
