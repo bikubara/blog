@@ -59,7 +59,7 @@ button{background:black;border:1px solid black;
     width:30px;background:yellow;border-radius:5px;top:20px;
 }
 
-#item_container{height:auto;width:auto; position:relative;background:blue;padding:5px;display:flex;}
+#item_container{height:auto;width:auto; position:absolute;background:blue;padding:5px;display:flex;}
 
 #item{height:auto;width:fit-content;background:grey;
     margin:2px;padding:5px;border-radius:5px;margin-left:10px;
