@@ -65,6 +65,6 @@ button{background:black;border:1px solid black;
     margin:2px;padding:5px;border-radius:5px;margin-left:10px;
 }
 
-status{position:absolute;}
+status{position:relative;display:block;}
 
 
