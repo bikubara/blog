@@ -55,10 +55,11 @@ button{background:black;border:1px solid black;
 container{position:relative;}
 
 #item_container{position:relative;height:auto;width:100%;
-    background:#0000ff;padding:5px;display:flex;}
+    background:#0000ff;display:flex;}
 
-#item{height:auto;width:fit-content;background:grey;
-    margin:2px;padding:5px;border-radius:5px;margin-left:10px;
+#item{height:50px;width:50px;background:grey;
+    margin:5px;padding:5px;border-radius:360px;
+    margin-left:10px;align-content:center;
 }
 
 status{position:relative;display:block;}
