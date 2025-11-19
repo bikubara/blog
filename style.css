@@ -52,7 +52,7 @@ button{background:black;border:1px solid black;
 }
 
 /* ---------------------status item------------------------------- */
-container{position:absolute;}
+container{position:relative;}
 
 #item_container{position:relative;height:auto;width:auto;
     background:#0000ff;padding:5px;display:flex;}
