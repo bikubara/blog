@@ -6,7 +6,7 @@
 /*---------------------------body------------------------*/
 body{background:#a8a8e7;margin:0px;}
 
-header{position:sticky;height:var(--header_height);width:100%;
+header{position:relative;height:30px;width:auto;
     left:0px;top:0px;background:black;text-align:center;
     text-align:center;padding:12px;
     background:green;margin-left:none;margin:0px;
@@ -58,14 +58,16 @@ container{position:relative;}
     background:#0000ff;display:flex;}
 
 #item{height:50px;width:50px;background:grey;
-    margin:5px;padding:5px;border-radius:360px;
+    margin:5px;padding:1px;border-radius:360px;
     margin-left:10px;align-content:center;
+    text-align:center;line-height:50px;
+    border:1px solid white;
 }
 
 status{position:relative;display:block;}
 
 /* ------------------------footer--------------------------------*/
-footer{position:sticky;text-align:center;
+footer{text-align:center;
      bottom:0px;left:0px;display:block;
         background:white;padding-top:15px;
         padding-bottom:15px;
