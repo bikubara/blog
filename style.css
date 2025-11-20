@@ -13,13 +13,14 @@ header{position:relative;height:30px;width:auto;
 }
 
 
-/* styling for icons logos*/
+/* styling for icons logos
 #facebook, #insta, #x, #youtube, #linkdin{position:relative; height:var(--social_margin);width:var(--social_margin);
     background:none;display:block;
     border-radius:360px;margin:2px;
     width:var(--social_margin);object-fit:fill;
     border:1px solid black; sa
 }
+*/
 
 /*--------------------------- social logo----------------- */
 .logo{position:absolute;
