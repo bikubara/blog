@@ -13,23 +13,23 @@ header{position:relative;height:30px;width:auto;
 }
 
 
-/* styling for icons logos
-#facebook,#insta, #x, #youtube, #linkdin{position:relative;
-    height:var(--social_margin);width:var(--social_margin);
+/* styling for icons logos*/
+#facebook, #insta, #x, #youtube, #linkdin{position:relative; height:var(--social_margin);width:var(--social_margin);
     background:none;display:block;
     border-radius:360px;margin:2px;
     width:var(--social_margin);object-fit:fill;
     border:1px solid black; sa
 }
-*/
+
 /*--------------------------- social logo----------------- */
-.logo{position:relative;}
-    height:var(--social_margin);width:var(--social_margin);
+.logo{position:relative;
+height:var(--social_margin);width:var(--social_margin);
     background:none;display:block;
     border-radius:360px;margin:2px;
     width:var(--social_margin);object-fit:fill;
     border:none;
 }
+
 /*used here to fit images into div content perfectly*/
 .logo img{
     width:100%;
@@ -37,8 +37,7 @@ header{position:relative;height:30px;width:auto;
     object-fit:fill;
 }
 
-.button{background:black;border:1px solid black;
-    border-radius:3px;margin:3px;padding:5px;color:white;
+.button{background:black;border:1px solid black; border-radius:3px;margin:3px;padding:5px;color:white;
 }
 /* menu */
 
