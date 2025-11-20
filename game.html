@@ -1,11 +1,275 @@
-<html>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Catch the Stars — Simple HTML Game</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <style>
+        :root{--bg:#0b1220;--panel:#0f1a2b;--accent:#ffd54a;--danger:#ff6b6b}
+        html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:linear-gradient(180deg,var(--bg),#07101a);color:#e6eef8}
+        .wrap{min-height:100%;display:flex;align-items:center;justify-content:center;padding:24px;box-sizing:border-box}
+        .card{width:360px;background:linear-gradient(180deg,var(--panel),#081323);border-radius:12px;padding:14px;box-shadow:0 8px 30px rgba(2,6,23,0.6);text-align:center}
+        h1{font-size:18px;margin:6px 0 10px}
+        canvas{display:block;background:#061226;border-radius:8px;width:100%;height:auto;touch-action:none}
+        .hud{display:flex;justify-content:space-between;align-items:center;margin:10px 4px 0 4px;font-size:13px;color:#cfe7ff}
+        .controls{display:flex;gap:8px;justify-content:center;margin-top:10px}
+        button{background:#11324a;border:1px solid rgba(255,255,255,0.04);color:#cfe7ff;padding:8px 12px;border-radius:8px;font-weight:600;cursor:pointer}
+        button:active{transform:translateY(1px)}
+        .big{font-size:14px;padding:10px 14px}
+        .overlay{position:relative;margin-top:10px;padding:10px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);font-size:13px}
+        .hint{opacity:.8;font-size:12px;margin-top:6px}
+        .touch-row{display:flex;gap:8px;justify-content:center}
+        .touch{flex:1;padding:10px;border-radius:8px;background:#0d2434;color:#bfe7ff;font-weight:700}
+    </style>
+</head>
 <body>
-simple game
-<div id="container">
-<button>start</button>
-<button>setting</button>
-<button>exit</button>
+    <div class="wrap">
+        <div class="card">
+            <h1>Catch the Stars</h1>
+            <canvas id="game" width="360" height="640"></canvas>
+            <div class="hud">
+                <div>Score: <span id="score">0</span></div>
+                <div>Best: <span id="best">0</span></div>
+            </div>
+            <div class="controls">
+                <button id="start" class="big">Start</button>
+                <button id="restart">Restart</button>
+                <button id="mute">🔊</button>
+            </div>
+            <div class="overlay" id="message">Move left/right with arrow keys or tap the touch buttons. Catch yellow stars (+1). Avoid red blocks — collision ends the run.</div>
+            <div class="hint">
+                <div class="touch-row" style="margin-top:8px">
+                    <div class="touch" id="left">◀︎ Left</div>
+                    <div class="touch" id="right">Right ▶︎</div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-</div>
+    <script>
+        // Simple canvas game: player moves horizontally catching stars while avoiding blocks.
+        const canvas = document.getElementById('game');
+        const ctx = canvas.getContext('2d');
+        const W = canvas.width, H = canvas.height;
+
+        // UI
+        const scoreEl = document.getElementById('score');
+        const bestEl = document.getElementById('best');
+        const startBtn = document.getElementById('start');
+        const restartBtn = document.getElementById('restart');
+        const muteBtn = document.getElementById('mute');
+        const leftBtn = document.getElementById('left');
+        const rightBtn = document.getElementById('right');
+
+        let best = parseInt(localStorage.getItem('ctb_best') || '0', 10);
+        bestEl.textContent = best;
+
+        // Game state
+        let player = { x: W/2, y: H - 60, w: 60, h: 10, speed: 320 };
+        let keys = {};
+        let objects = []; // falling objects: {x,y,r,type,vy}
+        let score = 0;
+        let running = false;
+        let last = 0;
+        let spawnTimer = 0;
+        let gravityBase = 80;
+        let muted = false;
+
+        // Simple sounds (beeps)
+        function beep(freq, time=0.06, vol=0.12){
+            if(muted) return;
+            try{
+                const a = new (window.AudioContext || window.webkitAudioContext)();
+                const o = a.createOscillator();
+                const g = a.createGain();
+                o.type = 'sine'; o.frequency.value = freq;
+                g.gain.value = vol;
+                o.connect(g); g.connect(a.destination);
+                o.start();
+                setTimeout(()=>{ o.stop(); a.close(); }, time*1000);
+            }catch(e){}
+        }
+
+        function spawnObject(){
+            // Probabilities: 70% star, 30% obstacle
+            const x = 20 + Math.random()*(W-40);
+            const isStar = Math.random() < 0.7;
+            const size = isStar ? 10 + Math.random()*8 : 14 + Math.random()*10;
+            const speed = gravityBase + Math.random()*80 + Math.floor(score/5)*12;
+            objects.push({ x, y: -30, r: size, type: isStar ? 'star' : 'block', vy: speed });
+        }
+
+        function reset(){
+            objects = [];
+            score = 0;
+            scoreEl.textContent = score;
+            player.x = W/2;
+            spawnTimer = 0;
+            gravityBase = 80;
+        }
+
+        function start(){ reset(); running = true; last = performance.now(); loop(last); startBtn.textContent = 'Playing...'; beep(880,0.05); }
+        function stopGame(){
+            running = false;
+            startBtn.textContent = 'Start';
+            if(score > best){ best = score; localStorage.setItem('ctb_best', best); bestEl.textContent = best; }
+            beep(160,0.18);
+            // show a small flash
+            flashGameOver();
+        }
+
+        function flashGameOver(){
+            // Quick overlay flash by drawing text for a moment
+            ctx.save();
+            ctx.fillStyle = 'rgba(0,0,0,0.5)';
+            ctx.fillRect(0,0,W,H);
+            ctx.fillStyle = '#ffcb6b';
+            ctx.font = '28px system-ui';
+            ctx.textAlign = 'center';
+            ctx.fillText('Game Over', W/2, H/2 - 10);
+            ctx.font = '18px system-ui';
+            ctx.fillText('Score: ' + score, W/2, H/2 + 20);
+            ctx.restore();
+        }
+
+        function loop(t){
+            if(!running) return;
+            const dt = Math.min(0.05, (t - last)/1000);
+            last = t;
+            update(dt);
+            render();
+            requestAnimationFrame(loop);
+        }
+
+        function update(dt){
+            // player movement
+            let dir = 0;
+            if(keys.ArrowLeft || keys.a) dir -= 1;
+            if(keys.ArrowRight || keys.d) dir += 1;
+            player.x += dir * player.speed * dt;
+            // clamp
+            player.x = Math.max(player.w/2, Math.min(W - player.w/2, player.x));
+
+            // spawn
+            spawnTimer -= dt;
+            if(spawnTimer <= 0){
+                spawnObject();
+                spawnTimer = 0.45 - Math.min(0.25, score*0.01);
+            }
+
+            // update objects
+            for(let i = objects.length - 1; i >= 0; i--){
+                const o = objects[i];
+                o.y += o.vy * dt;
+                if(o.y - o.r > H + 40){
+                    objects.splice(i,1);
+                    continue;
+                }
+                // collision with player (AABB vs circle approximate)
+                const px = player.x;
+                const py = player.y;
+                const closestX = Math.max(px - player.w/2, Math.min(o.x, px + player.w/2));
+                const closestY = Math.max(py - player.h/2, Math.min(o.y, py + player.h/2));
+                const dx = o.x - closestX;
+                const dy = o.y - closestY;
+                if(dx*dx + dy*dy < o.r*o.r){
+                    if(o.type === 'star'){
+                        score++;
+                        scoreEl.textContent = score;
+                        beep(1200 - Math.min(600, score*10), 0.05, 0.09);
+                        objects.splice(i,1);
+                        // increase difficulty slightly
+                        gravityBase += 0.6;
+                    } else {
+                        // hit block -> game over
+                        stopGame();
+                    }
+                }
+            }
+        }
+
+        function render(){
+            // background
+            ctx.clearRect(0,0,W,H);
+            // decorative stars in bg
+            ctx.fillStyle = '#071826';
+            ctx.fillRect(0,0,W,H);
+            // draw falling objects
+            for(const o of objects){
+                if(o.type === 'star'){
+                    // star - draw a simple circle with glow
+                    const g = ctx.createRadialGradient(o.x, o.y, 0, o.x, o.y, o.r*2);
+                    g.addColorStop(0, 'rgba(255,240,160,0.95)');
+                    g.addColorStop(0.5, 'rgba(255,210,90,0.8)');
+                    g.addColorStop(1, 'rgba(255,180,40,0.06)');
+                    ctx.fillStyle = g;
+                    ctx.beginPath();
+                    ctx.arc(o.x, o.y, o.r, 0, Math.PI*2);
+                    ctx.fill();
+                } else {
+                    // block
+                    ctx.fillStyle = '#ff6b6b';
+                    ctx.fillRect(o.x - o.r, o.y - o.r, o.r*2, o.r*2);
+                    ctx.strokeStyle = 'rgba(0,0,0,0.12)';
+                    ctx.strokeRect(o.x - o.r, o.y - o.r, o.r*2, o.r*2);
+                }
+            }
+
+            // player
+            // draw board
+            ctx.fillStyle = '#0f2a3a';
+            ctx.fillRect(player.x - player.w/2 - 6, player.y - player.h/2 - 8, player.w+12, player.h+16);
+            // player pad
+            const grad = ctx.createLinearGradient(player.x - player.w/2, player.y, player.x + player.w/2, player.y);
+            grad.addColorStop(0, '#8ad4ff');
+            grad.addColorStop(1, '#50b7ff');
+            ctx.fillStyle = grad;
+            ctx.fillRect(player.x - player.w/2, player.y - player.h/2, player.w, player.h);
+
+            // score text in canvas corner
+            ctx.fillStyle = 'rgba(255,255,255,0.06)';
+            ctx.fillRect(8,8,94,28);
+            ctx.fillStyle = '#dff6ff';
+            ctx.font = '14px system-ui';
+            ctx.textAlign = 'left';
+            ctx.fillText('Score: ' + score, 14, 28);
+        }
+
+        // Input handlers
+        window.addEventListener('keydown', e => { keys[e.key] = true; if(e.key === ' ' && !running){ start(); } });
+        window.addEventListener('keyup', e => { keys[e.key] = false; });
+
+        // touch buttons
+        leftBtn.addEventListener('pointerdown', () => { keys.ArrowLeft = true; });
+        leftBtn.addEventListener('pointerup', () => { keys.ArrowLeft = false; });
+        leftBtn.addEventListener('pointerleave', () => { keys.ArrowLeft = false; });
+        rightBtn.addEventListener('pointerdown', () => { keys.ArrowRight = true; });
+        rightBtn.addEventListener('pointerup', () => { keys.ArrowRight = false; });
+        rightBtn.addEventListener('pointerleave', () => { keys.ArrowRight = false; });
+
+        // canvas drag for control
+        let dragging = false;
+        let lastX = 0;
+        canvas.addEventListener('pointerdown', (e) => {
+            dragging = true; lastX = e.clientX;
+        });
+        window.addEventListener('pointermove', (e) => {
+            if(!dragging) return;
+            const dx = e.clientX - lastX;
+            lastX = e.clientX;
+            player.x += dx * (W / canvas.getBoundingClientRect().width);
+            player.x = Math.max(player.w/2, Math.min(W - player.w/2, player.x));
+        });
+        window.addEventListener('pointerup', () => { dragging = false; });
+
+        // buttons
+        startBtn.addEventListener('click', () => { if(!running) start(); });
+        restartBtn.addEventListener('click', () => { reset(); if(!running) render(); });
+        muteBtn.addEventListener('click', () => { muted = !muted; muteBtn.textContent = muted ? '🔈' : '🔊'; });
+
+        // initial render
+        reset();
+        render();
+    </script>
 </body>
 </html>

@@ -37,7 +37,7 @@ header{position:relative;height:30px;width:auto;
     object-fit:fill;
 }
 
-button{background:black;border:1px solid black;
+.button{background:black;border:1px solid black;
     border-radius:3px;margin:3px;padding:5px;color:white;
 }
 /* menu */
@@ -85,3 +85,19 @@ status{position:sticky;}
 /*
 commented out CSS
 */
+/* index html ends here */
+
+/* game file starts here */
+
+#game_button{background:black;height:auto;width:auto;  
+    border-radius:3px;margin:3px;
+    padding:5px;color:white;
+    font-size:19px;border:none;
+}
+
+#game_start_menu{position:absolute;
+    background:#a8a8e7;
+    display:block;height:auto;width:100%;
+    justify-content:center;
+    align-items:center;background:pink;
+}
