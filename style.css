@@ -22,7 +22,7 @@ header{position:relative;height:30px;width:auto;
 }
 
 /*--------------------------- social logo----------------- */
-.logo{position:relative;
+.logo{position:absolute;
 height:var(--social_margin);width:var(--social_margin);
     background:none;display:block;
     border-radius:360px;margin:2px;
