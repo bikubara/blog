@@ -74,8 +74,8 @@ footer{text-align:center;
         width:100%;
         font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     }
-#social_container{position:absolute;height:fit-content;
-    background:none;display:flex;width:100%;
+#social_container{position:relative;height:fit-content;
+    background:;display:flex;width:100%;
     justify-content:center;
     padding:1.5px;
 }
