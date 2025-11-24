@@ -20,7 +20,6 @@ header{display:block;
     text-align:center;padding:12px;
     background:green;margin-left:none;margin:0px;
 }
-<<<<<<< HEAD
 .menu{content:'';position:relative;height:5px;width:30px;background:red;border-radius:5px;
 }
 .menu::before{content:'';position:relative;height:5px;display:block;
@@ -41,18 +40,6 @@ header{display:block;
 
 
 
-=======
-
-
-/* styling for icons logos
-#facebook, #insta, #x, #youtube, #linkdin{position:relative; height:var(--social_margin);width:var(--social_margin);
-    background:none;display:block;
-    border-radius:360px;margin:2px;
-    width:var(--social_margin);object-fit:fill;
-    border:1px solid black; sa
-}
-*/
->>>>>>> 1c3f58d54fd9c8de33b54d6bae1a1482d581249d
 
 /*--------------------------- social logo----------------- */
 .logo{position:absolute;
@@ -70,12 +57,8 @@ height:var(--social_margin);width:var(--social_margin);
     object-fit:fill;
 }
 
-<<<<<<< HEAD
 .button{background:black;border:1px solid black;
     border-radius:3px;margin:3px;padding:10px;color:white;
-=======
-.button{background:black;border:1px solid black; border-radius:3px;margin:3px;padding:5px;color:white;
->>>>>>> 1c3f58d54fd9c8de33b54d6bae1a1482d581249d
 }
 
 
@@ -99,7 +82,7 @@ status{position:relative;display:block;}
 /* -----------------displaying content ends here---------------------- */
 
 /* ------------------------footer start--------------------------------*/
-footer{display:none;
+footer{display:block;
     text-align:center;
      bottom:0px;left:0px;
         background:white;padding-top:15px;
@@ -107,26 +90,10 @@ footer{display:none;
         width:100%;
         font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     }
-<<<<<<< HEAD
-
-#social_container{position:relative;height:fit-content;
-    background:none;display:flex;width:100%;
-    justify-content:center;border:none;
-   
-}
-
-#facebook,#insta, #x, #youtube, #linkdin{position:relative;
-    height:var(--social_margin);width:var(--social_margin);
-    background:none;display:block;
-    border-radius:360px;margin:2px;
-    width:var(--social_margin);object-fit:fill;
-    border:1px solid black;
-=======
 #social_container{position:relative;height:fit-content;
     background:;display:flex;width:100%;
     justify-content:center;
     padding:1.5px;
->>>>>>> 1c3f58d54fd9c8de33b54d6bae1a1482d581249d
 }
 
 status{position:sticky;}
