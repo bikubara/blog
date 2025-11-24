@@ -3,25 +3,44 @@
      --location_size:20px;
      --header_height:30px;
 }
-/*---------------------------body------------------------*/
+/*---------------------------body start------------------------*/
 body{background:#a8a8e7;margin:0px;}
 
-header{position:relative;height:30px;width:auto;
+button{background:black;border:1px solid black;
+    border-radius:5px;margin:0px;padding:5px;color:white;
+}
+right{position:absolute;right:10px;
+    top:15px;color:white;
+    font-size:15px;
+    }
+/* ------------------------header------------------------------- */
+header{display:block;
+    position:relative;height:30px;width:auto;
     left:0px;top:0px;background:black;text-align:center;
     text-align:center;padding:12px;
     background:green;margin-left:none;margin:0px;
 }
-
-
-/* styling for icons logos
-#facebook,#insta, #x, #youtube, #linkdin{position:relative;
-    height:var(--social_margin);width:var(--social_margin);
-    background:none;display:block;
-    border-radius:360px;margin:2px;
-    width:var(--social_margin);object-fit:fill;
-    border:1px solid black; sa
+.menu{content:'';position:relative;height:5px;width:30px;background:red;border-radius:5px;
 }
-*/
+.menu::before{content:'';position:relative;height:5px;display:block;
+    width:30px;background:pink;border-radius:5px;top:12px;
+}
+.menu::after{content:'';position:relative;height:5px;display:block;
+    width:30px;background:yellow;border-radius:5px;top:20px;
+}
+/* ----------------------header ends here-------------------------- */
+
+/* ---------------------displaying content---------------------- */
+
+
+
+
+
+
+
+
+
+
 /*--------------------------- social logo----------------- */
 .logo{position:relative;
     height:var(--social_margin);width:var(--social_margin);
@@ -38,49 +57,57 @@ header{position:relative;height:30px;width:auto;
 }
 
 .button{background:black;border:1px solid black;
-    border-radius:3px;margin:3px;padding:5px;color:white;
+    border-radius:3px;margin:3px;padding:10px;color:white;
 }
-/* menu */
 
-.menu{content:'';position:relative;height:5px;width:30px;background:red;border-radius:5px;
-}
-.menu::before{content:'';position:relative;height:5px;display:block;
-    width:30px;background:pink;border-radius:5px;top:12px;
-}
-.menu::after{content:'';position:relative;height:5px;display:block;
-    width:30px;background:yellow;border-radius:5px;top:20px;
-}
 
 /* ---------------------status item------------------------------- */
-container{position:relative;}
+container{position:relative;background:greenyellow;}
 
 #item_container{position:relative;height:auto;width:100%;
     background:#0000ff;display:flex;}
 
 #item{height:50px;width:50px;background:grey;
-    margin:5px;padding:1px;border-radius:360px;
+    margin:2.5px;padding:.25px;border-radius:360px;
     margin-left:10px;align-content:center;
     text-align:center;line-height:50px;
     border:1px solid white;
+    margin-top:5px;
+    margin-bottom:5px;
 }
 
 status{position:relative;display:block;}
+/* ------------------------status item ends -------------------------- */
+/* -----------------displaying content ends here---------------------- */
 
-/* ------------------------footer--------------------------------*/
-footer{text-align:center;
-     bottom:0px;left:0px;display:block;
+/* ------------------------footer start--------------------------------*/
+footer{display:none;
+    text-align:center;
+     bottom:0px;left:0px;
         background:white;padding-top:15px;
         padding-bottom:15px;
         width:100%;
         font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     }
-#social_container{position:absolute;height:fit-content;
+
+#social_container{position:relative;height:fit-content;
     background:none;display:flex;width:100%;
-    justify-content:center;
-    padding:1.5px;
+    justify-content:center;border:none;
+   
+}
+
+#facebook,#insta, #x, #youtube, #linkdin{position:relative;
+    height:var(--social_margin);width:var(--social_margin);
+    background:none;display:block;
+    border-radius:360px;margin:2px;
+    width:var(--social_margin);object-fit:fill;
+    border:1px solid black;
 }
 
 status{position:sticky;}
+
+/* ---------------------------footer ends here--------------------------- */
+/*----------------------index.html body ends here------------------------*/
 
 /*
 commented out CSS
