@@ -1,0 +1,809 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Recipe Gallery</title>
+  <style>
+    :root {
+      --bg: #0e1220;
+      --panel: #171d33;
+      --panel-2: #232a47;
+      --accent: #ffcc74;
+      --accent-2: #7fd2ff;
+      --text: #f8f5ff;
+      --muted: #c9c2e6;
+      --border: rgba(255,255,255,0.12);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(255,214,122,0.28), transparent 24%),
+        radial-gradient(circle at bottom right, rgba(127,210,255,0.2), transparent 28%),
+        linear-gradient(135deg, #11162b 0%, #1a2544 50%, #0a0f1d 100%);
+      color: var(--text);
+      min-height: 100vh;
+      background-attachment: fixed;
+    }
+
+    .page {
+      width: 100vw;
+      min-height: 100vh;
+      margin: 0;
+      padding: 24px;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: 2rem;
+      color: #fff4d1;
+    }
+
+    .hero p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .game-shell {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 18px;
+      align-items: start;
+      height: calc(100vh - 120px);
+    }
+
+    .card {
+      background: linear-gradient(145deg, rgba(20,20,20,0.97), rgba(36,36,36,0.96));
+      border: 2px solid rgba(255,255,255,0.18);
+      border-radius: 5px;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.28);
+      overflow: hidden;
+    }
+
+    .sidebar {
+      padding: 14px;
+      height: 100%;
+    }
+
+    .sidebar-head {
+      padding: 8px 6px 12px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #ffe7aa;
+    }
+
+    .recipe-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-height: calc(100vh - 220px);
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .exercise-panel {
+      margin-bottom: 16px;
+      padding: 12px 14px;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.06);
+      border-radius: 5px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.16);
+      overflow: hidden;
+    }
+
+    .exercise-toggle {
+      border: 0;
+      background: transparent;
+      color: #ffe7aa;
+      font-size: 0.92rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      cursor: pointer;
+      padding: 0;
+      margin-bottom: 8px;
+    }
+
+    .exercise-panel-body {
+      display: grid;
+      grid-template-columns: 1fr;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease, opacity 0.5s ease, transform 0.5s ease;
+      transform: translateX(-12px);
+    }
+
+    .exercise-panel.open .exercise-panel-body {
+      max-height: 220px;
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .exercise-panel-title {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #ffe7aa;
+      margin-bottom: 8px;
+    }
+
+    .exercise-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .exercise-btn {
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+      padding: 8px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.84rem;
+      transition: background 0.5s ease, transform 0.5s ease, border-color 0.5s ease;
+    }
+
+    .exercise-btn:hover,
+    .exercise-btn.active {
+      background: rgba(255,255,255,0.14);
+      border-color: rgba(255,255,255,0.4);
+      transform: translateY(-1px);
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.18), 0 0 10px rgba(255,214,122,0.22);
+    }
+
+    .recipe-group {
+      width: 100%;
+    }
+
+    .recipe-group-title {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #ffe7aa;
+      margin-bottom: 6px;
+    }
+
+    .category-divider {
+      border: 0;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.2), rgba(255,255,255,0.6), rgba(255,255,255,0.2));
+      margin: 0 0 8px;
+    }
+
+    .recipe-group-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .recipe-list::-webkit-scrollbar {
+      width: 7px;
+    }
+
+    .recipe-list::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.22);
+      border-radius: 999px;
+    }
+
+    .recipe-btn {
+      width: 50px;
+      height: 50px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      padding: 0;
+      border-radius: 0;
+      cursor: pointer;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      position: relative;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 0 10px rgba(255,214,122,0.12);
+      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .recipe-btn::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border: 1px solid transparent;
+      background: linear-gradient(120deg, rgba(255,255,255,0.5), rgba(255,255,255,0.08), rgba(255,255,255,0.5));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .recipe-btn:hover,
+    .recipe-btn.active {
+      transform: translateX(2px) scale(1.04);
+      background: rgba(255,255,255,0.09);
+      border-color: rgba(255,255,255,0.4);
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.14), 0 0 12px rgba(255,255,255,0.12);
+    }
+
+    .recipe-btn.active::after {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border: 2px solid rgba(255,255,255,0.7);
+      animation: sparkle 1.2s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes sparkle {
+      0% { transform: scale(1); opacity: 0.7; }
+      50% { transform: scale(1.04); opacity: 1; }
+      100% { transform: scale(1.08); opacity: 0; }
+    }
+
+    .recipe-btn .icon {
+      font-size: 1.2rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      border-radius: 0;
+      background: transparent;
+      object-fit: cover;
+      padding: 0;
+    }
+
+    .detail-card {
+      padding: 24px;
+      min-height: 100%;
+      max-height: 100%;
+      overflow-y: auto;
+      background: linear-gradient(135deg, #fff6da 0%, #ffd98f 35%, #ffb86b 100%);
+      color: #311b0f;
+      opacity: 0;
+      transform: translateY(18px) scale(0.98);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .detail-card.show {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .detail-top {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    .detail-emoji {
+      font-size: 3rem;
+      width: 78px;
+      height: 78px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 5px;
+      background: linear-gradient(135deg, var(--accent), #ff7f50);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.2);
+    }
+
+    .detail-top h2 {
+      margin: 0 0 6px;
+      font-size: 1.5rem;
+      color: #6a2e1f;
+    }
+
+    .detail-top p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 14px 0 18px;
+    }
+
+    .chip {
+      padding: 6px 10px;
+      border-radius: 5px;
+      background: rgba(255,255,255,0.28);
+      color: #5c2b13;
+      font-size: 0.9rem;
+      border: 1px solid rgba(92,43,19,0.12);
+    }
+
+    .ingredient-panel,
+    .steps-panel {
+      padding: 16px;
+      border-radius: 5px;
+      background: rgba(255,255,255,0.35);
+      border: 1px solid rgba(92,43,19,0.12);
+      backdrop-filter: blur(4px);
+    }
+
+    .ingredient-panel h3,
+    .steps-panel h3 {
+      margin: 0 0 10px;
+      font-size: 1.05rem;
+      color: #6a2e1f;
+    }
+
+    .ingredient-panel ul,
+    .steps-panel ol {
+      padding-left: 18px;
+      margin: 0;
+      line-height: 1.8;
+      color: #5c2b13;
+    }
+
+    .steps-panel {
+      margin-top: 12px;
+    }
+
+    @media (max-width: 780px) {
+      .game-shell {
+        grid-template-columns: 1fr;
+      }
+
+      .recipe-list {
+        max-height: 260px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <h1>Recipe Gallery</h1>
+      <p>Select a dish from the left and view its ingredients in the main panel.</p>
+    </section>
+
+    <section class="exercise-panel" id="exercisePanel">
+      <button class="exercise-toggle" id="exerciseToggle">Exercise</button>
+      <div class="exercise-panel-body">
+        <div class="exercise-panel-title">Exercise</div>
+        <div class="exercise-list" id="exerciseStrip"></div>
+      </div>
+    </section>
+
+    <section class="game-shell">
+      <aside class="card sidebar">
+        <div class="sidebar-head">Recipes</div>
+        <div class="recipe-list" id="recipeStrip"></div>
+      </aside>
+
+      <article class="card detail-card" id="detailCard">
+        <div class="detail-top">
+          <div class="detail-emoji" id="recipeEmoji">🍕</div>
+          <div>
+            <h2 id="recipeName">Margherita Pizza</h2>
+            <p id="recipeDesc">A golden crust layered with tomato, mozzarella, and fresh basil.</p>
+          </div>
+        </div>
+
+        <div class="chip-row" id="recipeTags"></div>
+
+        <div class="ingredient-panel">
+          <h3>Ingredients</h3>
+          <ul id="ingredientList"></ul>
+        </div>
+
+        <div class="steps-panel">
+          <h3>Preparation Steps</h3>
+          <ol id="stepList"></ol>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <script>
+    const exerciseOptions = [
+      {
+        name: 'Warm-up Stretch',
+        emoji: '🧘',
+        desc: 'A gentle mobility session to wake up your body and improve posture.',
+        benefits: ['Improves flexibility', 'Reduces stiffness', 'Prepares joints for movement'],
+        duration: '8 min',
+        steps: ['March in place for 1 minute.', 'Do shoulder rolls and side bends.', 'Finish with slow hamstring and hip stretches.']
+      },
+      {
+        name: 'Cardio Burst',
+        emoji: '🏃',
+        desc: 'A fast-paced cardio burst to raise your heart rate and boost energy.',
+        benefits: ['Boosts stamina', 'Burns calories', 'Improves endurance'],
+        duration: '10 min',
+        steps: ['Start with light jogging.', 'Alternate fast steps and short rests.', 'Cool down with slow breathing.']
+      },
+      {
+        name: 'Core Blast',
+        emoji: '💪',
+        desc: 'A focused core routine for abs, obliques, and full-body strength.',
+        benefits: ['Strengthens core', 'Supports posture', 'Improves balance'],
+        duration: '12 min',
+        steps: ['Begin with plank holds.', 'Add crunches and side bends.', 'Finish with a short breathing reset.']
+      },
+      {
+        name: 'Upper Body Flow',
+        emoji: '🏋️',
+        desc: 'A balanced upper-body flow for shoulders, arms, and back.',
+        benefits: ['Builds strength', 'Improves posture', 'Increases mobility'],
+        duration: '15 min',
+        steps: ['Perform shoulder presses.', 'Add arm circles and rows.', 'Finish with a relaxed stretch.']
+      },
+      {
+        name: 'Yoga Flow',
+        emoji: '🕉️',
+        desc: 'A calming yoga flow designed to release tension and restore focus.',
+        benefits: ['Improves calmness', 'Boosts flexibility', 'Eases stress'],
+        duration: '14 min',
+        steps: ['Begin in a gentle seated stretch.', 'Move through cat-cow and downward dog.', 'End with a quiet breathing pause.']
+      },
+      {
+        name: 'HIIT Circuit',
+        emoji: '⚡',
+        desc: 'A high-intensity interval circuit for a quick full-body challenge.',
+        benefits: ['Increases power', 'Sparks calorie burn', 'Builds endurance'],
+        duration: '16 min',
+        steps: ['Do 30 seconds of fast movement.', 'Recover for 15 seconds.', 'Repeat for several rounds.']
+      }
+    ];
+
+    let selectedExercise = 0;
+    let selectedRecipeIndex = 0;
+    let currentView = 'recipe';
+
+    const recipeGroups = [
+      {
+        title: 'Soups',
+        items: [
+          {
+            name: 'Tomato Basil Soup',
+            image: 'images/salad.svg',
+            desc: 'A velvety tomato soup finished with basil and a creamy swirl.',
+            tags: ['Warm', 'Comfort', 'Quick'],
+            ingredients: ['Tomatoes', 'Onion', 'Garlic', 'Vegetable stock', 'Basil'],
+            steps: ['Sauté onion and garlic until fragrant.', 'Add tomatoes and stock, then simmer until soft.', 'Blend smooth and garnish with basil.']
+          },
+          {
+            name: 'Creamy Mushroom Soup',
+            image: 'images/smoothie.svg',
+            desc: 'A rich mushroom soup with a smooth, earthy finish.',
+            tags: ['Cozy', 'Creamy', 'Dinner'],
+            ingredients: ['Mushrooms', 'Butter', 'Cream', 'Garlic', 'Black pepper'],
+            steps: ['Sauté mushrooms and garlic until golden.', 'Add cream and simmer gently.', 'Blend until silky and serve hot.']
+          },
+          {
+            name: 'Chicken Corn Soup',
+            image: 'images/chicken.svg',
+            desc: 'A hearty soup with tender chicken, sweet corn, and silky broth.',
+            tags: ['Protein', 'Hearty', 'Warm'],
+            ingredients: ['Chicken', 'Sweet corn', 'Garlic', 'Stock', 'Spring onion'],
+            steps: ['Simmer chicken with stock until tender.', 'Add corn and seasonings.', 'Finish with spring onion and serve hot.']
+          }
+        ]
+      },
+      {
+        title: 'Main Course',
+        items: [
+          {
+            name: 'Paneer Butter Masala',
+            image: 'images/curry.svg',
+            desc: 'Soft paneer cubes in a rich tomato and cream gravy.',
+            tags: ['Rich', 'Comfort', 'Dinner'],
+            ingredients: ['Paneer', 'Tomato puree', 'Cream', 'Butter', 'Kasuri methi'],
+            steps: ['Cook the tomato gravy until thick and fragrant.', 'Add paneer and simmer with cream.', 'Finish with butter and kasuri methi.']
+          },
+          {
+            name: 'Vegetable Biryani',
+            image: 'images/ramen.svg',
+            desc: 'Fragrant rice layered with vegetables and warm spices.',
+            tags: ['Festive', 'Aromatic', 'Lunch'],
+            ingredients: ['Basmati rice', 'Carrot', 'Peas', 'Onion', 'Biryani masala'],
+            steps: ['Cook the rice separately until fluffy.', 'Sauté the vegetables and spices.', 'Layer rice and vegetables, then steam until fragrant.']
+          },
+          {
+            name: 'Chicken Kebab',
+            image: 'images/kebab.svg',
+            desc: 'Juicy skewered chicken with a smoky char and rich spice rub.',
+            tags: ['Grilled', 'Spicy', 'Dinner'],
+            ingredients: ['Chicken', 'Yogurt', 'Ginger garlic', 'Coriander', 'Lemon'],
+            steps: ['Marinate chicken with spices and yogurt.', 'Skewer and grill until beautifully charred.', 'Serve with lemon and herbs.']
+          }
+        ]
+      },
+      {
+        title: 'South Indian',
+        items: [
+          {
+            name: 'Masala Dosa',
+            image: 'images/tart.svg',
+            desc: 'Crisp dosa folded with a spiced potato filling.',
+            tags: ['Crispy', 'Savory', 'Breakfast'],
+            ingredients: ['Dosa batter', 'Potatoes', 'Onion', 'Mustard seeds', 'Curry leaves'],
+            steps: ['Prepare the potato filling with spices and onions.', 'Spread batter thinly on a hot pan.', 'Fold with the filling and serve hot.']
+          },
+          {
+            name: 'Idli Sambar',
+            image: 'images/pizza.svg',
+            desc: 'Soft steamed rice cakes served with tangy lentil sambar.',
+            tags: ['Steamed', 'Light', 'Breakfast'],
+            ingredients: ['Idli batter', 'Toor dal', 'Sambar spices', 'Tamarind', 'Curry leaves'],
+            steps: ['Steam the idli batter until fluffy.', 'Cook the dal with tamarind and spices.', 'Serve the idlis with sambar.']
+          }
+        ]
+      },
+      {
+        title: 'North Indian',
+        items: [
+          {
+            name: 'Dal Makhani',
+            image: 'images/curry.svg',
+            desc: 'Creamy black lentils simmered low and slow with butter.',
+            tags: ['Rich', 'Classic', 'Lunch'],
+            ingredients: ['Urad dal', 'Rajma', 'Cream', 'Butter', 'Ginger'],
+            steps: ['Cook the lentils until very soft.', 'Simmer with spices and cream.', 'Finish with butter and serve with bread.']
+          },
+          {
+            name: 'Aloo Paratha',
+            image: 'images/burger.svg',
+            desc: 'Stuffed flatbread filled with spiced mashed potatoes.',
+            tags: ['Comfort', 'Hearty', 'Breakfast'],
+            ingredients: ['Wheat dough', 'Potatoes', 'Onion', 'Garam masala', 'Butter'],
+            steps: ['Mix the potato filling with spices.', 'Stuff the dough and roll into parathas.', 'Cook on a pan with butter until golden.']
+          }
+        ]
+      },
+      {
+        title: 'Breakfast',
+        items: [
+          {
+            name: 'Masala Omelette',
+            image: 'images/pasta.svg',
+            desc: 'Fluffy eggs packed with onion, tomato, and green chilies.',
+            tags: ['Quick', 'Protein', 'Morning'],
+            ingredients: ['Eggs', 'Onion', 'Tomato', 'Green chili', 'Butter'],
+            steps: ['Whisk the eggs with spices.', 'Cook onion and tomato briefly.', 'Fold the eggs over the filling and serve.']
+          },
+          {
+            name: 'Poha',
+            image: 'images/sushi.svg',
+            desc: 'Light and fluffy flattened rice tossed with peanuts and spices.',
+            tags: ['Light', 'Quick', 'Morning'],
+            ingredients: ['Poha', 'Peanuts', 'Onion', 'Lemon', 'Curry leaves'],
+            steps: ['Soak the poha until softened.', 'Sauté onions and peanuts with spices.', 'Mix everything together and add lemon.']
+          }
+        ]
+      },
+      {
+        title: 'Lunch',
+        items: [
+          {
+            name: 'Veg Pulao',
+            image: 'images/pizza.svg',
+            desc: 'A fragrant rice dish with vegetables and mild spices.',
+            tags: ['Aromatic', 'Simple', 'Lunch'],
+            ingredients: ['Rice', 'Peas', 'Carrot', 'Cashews', 'Ghee'],
+            steps: ['Cook the rice until fluffy.', 'Sauté vegetables and nuts in ghee.', 'Mix with rice and warm spices.']
+          },
+          {
+            name: 'Pav Bhaji',
+            image: 'images/pasta.svg',
+            desc: 'A spicy mashed vegetable curry served with buttery bread rolls.',
+            tags: ['Street Food', 'Spicy', 'Lunch'],
+            ingredients: ['Mixed vegetables', 'Pav buns', 'Bhaji masala', 'Butter', 'Lemon'],
+            steps: ['Cook vegetables until very soft and mash them.', 'Season with bhaji masala and butter.', 'Serve with toasted pav and lemon.']
+          },
+          {
+            name: 'Spicy Fish Curry',
+            image: 'images/fish.svg',
+            desc: 'Tender fish simmered in a bold, aromatic coastal curry.',
+            tags: ['Seafood', 'Spicy', 'Lunch'],
+            ingredients: ['Fish fillet', 'Coconut milk', 'Tomato', 'Onion', 'Curry leaves'],
+            steps: ['Sauté onions and spices until fragrant.', 'Add tomatoes and coconut milk.', 'Simmer fish gently until cooked through.']
+          },
+          {
+            name: 'Garlic Shrimp Rice',
+            image: 'images/shrimp.svg',
+            desc: 'Juicy shrimp tossed with garlic and served over fragrant rice.',
+            tags: ['Seafood', 'Savory', 'Lunch'],
+            ingredients: ['Shrimp', 'Garlic', 'Rice', 'Butter', 'Parsley'],
+            steps: ['Cook the rice until fluffy.', 'Sauté shrimp with garlic and butter.', 'Serve on rice and garnish with parsley.']
+          }
+        ]
+      }
+    ];
+
+    const allRecipes = [];
+    const recipeIndexMap = new Map();
+
+    recipeGroups.forEach(group => {
+      group.items.forEach(recipe => {
+        const flatRecipe = { ...recipe, category: group.title };
+        allRecipes.push(flatRecipe);
+        recipeIndexMap.set(flatRecipe.name, allRecipes.length - 1);
+      });
+    });
+
+    const recipeStrip = document.getElementById('recipeStrip');
+    const exercisePanel = document.getElementById('exercisePanel');
+    const exerciseToggle = document.getElementById('exerciseToggle');
+    const exerciseStrip = document.getElementById('exerciseStrip');
+    const recipeEmoji = document.getElementById('recipeEmoji');
+    const recipeName = document.getElementById('recipeName');
+    const recipeDesc = document.getElementById('recipeDesc');
+    const recipeTags = document.getElementById('recipeTags');
+    const ingredientList = document.getElementById('ingredientList');
+    const stepList = document.getElementById('stepList');
+    const ingredientTitle = document.querySelector('.ingredient-panel h3');
+    const stepTitle = document.querySelector('.steps-panel h3');
+
+    exerciseToggle.addEventListener('click', () => {
+      exercisePanel.classList.toggle('open');
+    });
+
+    function renderExercises() {
+      exerciseStrip.innerHTML = '';
+      exerciseOptions.forEach((option, index) => {
+        const button = document.createElement('button');
+        button.className = 'exercise-btn';
+        button.textContent = option.name;
+        if (index === selectedExercise) {
+          button.classList.add('active');
+        }
+        button.addEventListener('click', () => {
+          currentView = 'exercise';
+          selectedExercise = index;
+          renderExercises();
+          renderDetail();
+        });
+        exerciseStrip.appendChild(button);
+      });
+    }
+
+    function renderRecipes() {
+      recipeStrip.innerHTML = '';
+
+      recipeGroups.forEach(group => {
+        const groupBlock = document.createElement('div');
+        groupBlock.className = 'recipe-group';
+
+        const heading = document.createElement('div');
+        heading.className = 'recipe-group-title';
+        heading.textContent = group.title;
+
+        const divider = document.createElement('hr');
+        divider.className = 'category-divider';
+
+        const list = document.createElement('div');
+        list.className = 'recipe-group-list';
+
+        group.items.forEach(recipe => {
+          const globalIndex = recipeIndexMap.get(recipe.name);
+          const button = document.createElement('button');
+          button.className = 'recipe-btn';
+          button.dataset.recipeIndex = globalIndex;
+          button.innerHTML = `<img class="icon" src="${recipe.image}" alt="${recipe.name}">`;
+          button.setAttribute('title', recipe.name);
+          button.addEventListener('click', () => setRecipe(globalIndex));
+          list.appendChild(button);
+        });
+
+        groupBlock.appendChild(heading);
+        groupBlock.appendChild(divider);
+        groupBlock.appendChild(list);
+        recipeStrip.appendChild(groupBlock);
+      });
+    }
+
+    function renderDetail() {
+      const detailCard = document.getElementById('detailCard');
+      detailCard.classList.remove('show');
+      void detailCard.offsetWidth;
+
+      if (currentView === 'recipe') {
+        const recipe = allRecipes[selectedRecipeIndex];
+        recipeEmoji.innerHTML = `<img src="${recipe.image}" alt="${recipe.name}" style="width:100%;height:100%;object-fit:cover;border-radius:22px;">`;
+        recipeName.textContent = recipe.name;
+        recipeDesc.textContent = recipe.desc;
+
+        recipeTags.innerHTML = '';
+        recipe.tags.forEach(tag => {
+          const chip = document.createElement('span');
+          chip.className = 'chip';
+          chip.textContent = tag;
+          recipeTags.appendChild(chip);
+        });
+
+        ingredientTitle.textContent = 'Ingredients';
+        ingredientList.innerHTML = '';
+        recipe.ingredients.forEach(item => {
+          const listItem = document.createElement('li');
+          listItem.textContent = item;
+          ingredientList.appendChild(listItem);
+        });
+
+        stepTitle.textContent = 'Preparation Steps';
+        stepList.innerHTML = '';
+        recipe.steps.forEach((step, index) => {
+          const listItem = document.createElement('li');
+          listItem.textContent = `Step ${index + 1}: ${step}`;
+          stepList.appendChild(listItem);
+        });
+
+        recipeStrip.querySelectorAll('.recipe-btn').forEach(child => {
+          child.classList.toggle('active', Number(child.dataset.recipeIndex) === selectedRecipeIndex);
+        });
+      } else {
+        const exercise = exerciseOptions[selectedExercise];
+        recipeEmoji.innerHTML = `<span style="font-size: 2.6rem;">${exercise.emoji}</span>`;
+        recipeName.textContent = exercise.name;
+        recipeDesc.textContent = exercise.desc;
+
+        recipeTags.innerHTML = '';
+        [exercise.duration, ...exercise.benefits].forEach(item => {
+          const chip = document.createElement('span');
+          chip.className = 'chip';
+          chip.textContent = item;
+          recipeTags.appendChild(chip);
+        });
+
+        ingredientTitle.textContent = 'Benefits';
+        ingredientList.innerHTML = '';
+        exercise.benefits.forEach(item => {
+          const listItem = document.createElement('li');
+          listItem.textContent = item;
+          ingredientList.appendChild(listItem);
+        });
+
+        stepTitle.textContent = 'Routine';
+        stepList.innerHTML = '';
+        exercise.steps.forEach((step, index) => {
+          const listItem = document.createElement('li');
+          listItem.textContent = `Step ${index + 1}: ${step}`;
+          stepList.appendChild(listItem);
+        });
+
+        recipeStrip.querySelectorAll('.recipe-btn').forEach(child => {
+          child.classList.remove('active');
+        });
+      }
+
+      detailCard.classList.add('show');
+    }
+
+    function setRecipe(index) {
+      currentView = 'recipe';
+      selectedRecipeIndex = index;
+      renderDetail();
+    }
+
+    renderExercises();
+    renderRecipes();
+    renderDetail();
+  </script>
+</body>
+</html>
