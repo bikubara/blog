@@ -1,0 +1,4 @@
+ctrl+j to hide console on bottom
+ctrl+b hide left
+ctrl+alt+b hide right
+ctrl+k the z to go to full screen zen mode
