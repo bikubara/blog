@@ -130,3 +130,22 @@ commented out CSS
     justify-content:center;
     align-items:center;background:pink;
 }
+
+@media (max-width: 700px) {
+    body { font-size: 0.95rem; }
+    header { padding: 12px 12px; flex-direction: column; align-items: flex-start; }
+    right { width: 100%; justify-content: center; margin-top: 4px; }
+    container { margin: 10px 12px; padding: 12px; }
+    #item_container { gap: 8px; }
+    #item { min-width: calc(50% - 6px); }
+    footer { font-size: 0.95rem; }
+}
+
+@media (max-width: 480px) {
+    body { font-size: 0.9rem; }
+    .button, button { width: 100%; }
+    #item { min-width: 100%; }
+    #social_container { flex-wrap: wrap; gap: 8px; }
+    #game_button { width: 100%; }
+    #game_start_menu { padding: 16px; }
+}

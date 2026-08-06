@@ -8,7 +8,7 @@
         :root{--bg:#0b1220;--panel:#0f1a2b;--accent:#ffd54a;--danger:#ff6b6b}
         html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:linear-gradient(180deg,var(--bg),#07101a);color:#e6eef8}
         .wrap{min-height:100%;display:flex;align-items:center;justify-content:center;padding:24px;box-sizing:border-box}
-        .card{width:360px;background:linear-gradient(180deg,var(--panel),#081323);border-radius:12px;padding:14px;box-shadow:0 8px 30px rgba(2,6,23,0.6);text-align:center}
+        .card{width:min(100%, 360px);background:linear-gradient(180deg,var(--panel),#081323);border-radius:12px;padding:14px;box-shadow:0 8px 30px rgba(2,6,23,0.6);text-align:center}
         h1{font-size:18px;margin:6px 0 10px}
         canvas{display:block;background:#061226;border-radius:8px;width:100%;height:auto;touch-action:none}
         .hud{display:flex;justify-content:space-between;align-items:center;margin:10px 4px 0 4px;font-size:13px;color:#cfe7ff}
@@ -20,6 +20,13 @@
         .hint{opacity:.8;font-size:12px;margin-top:6px}
         .touch-row{display:flex;gap:8px;justify-content:center}
         .touch{flex:1;padding:10px;border-radius:8px;background:#0d2434;color:#bfe7ff;font-weight:700}
+        @media (max-width: 480px){
+            .wrap{padding:12px;}
+            .card{padding:12px;}
+            .controls{flex-wrap:wrap;}
+            .touch-row{flex-direction:column;}
+            .touch{width:100%;}
+        }
     </style>
 </head>
 <body>

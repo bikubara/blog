@@ -1,10 +1,27 @@
-<html>
+<!doctype html>
+<html lang="en">
     <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>simple game</title>
         <link rel="stylesheet" href="style.css">
+        <style>
+            body { margin: 0; }
+            #game_start_menu {
+                min-height: 100vh;
+                padding: 20px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            #game_start_menu center {
+                width: min(100%, 320px);
+            }
+            #game_start_menu a { color: white; text-decoration: none; display: block; }
+            #game_button { width: 100%; margin: 6px 0; }
+        </style>
     </head>
     <body>
-    
         <div id="game_start_menu">
             <center>
                 <h1>simple game</h1>
