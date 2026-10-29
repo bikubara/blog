@@ -31,10 +31,11 @@
     }
 
     .page {
-      width: 100vw;
+      width: 100%;
       min-height: 100vh;
       margin: 0;
       padding: 24px;
+      overflow-x: hidden;
     }
 
     .hero {
@@ -365,12 +366,35 @@
     }
 
     @media (max-width: 780px) {
+      .page {
+        padding: 16px;
+      }
+
+      .hero h1 {
+        font-size: clamp(1.4rem, 4vw, 1.8rem);
+      }
+
       .game-shell {
         grid-template-columns: 1fr;
       }
 
       .recipe-list {
         max-height: 260px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .page {
+        padding: 12px;
+      }
+
+      .hero p {
+        font-size: 0.95rem;
+      }
+
+      .sidebar,
+      .detail-card {
+        padding: 12px;
       }
     }
   </style>
