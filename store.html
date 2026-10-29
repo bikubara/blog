@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="theme-color" content="#101a19" />
+	<title>F4 Drones — Parts &amp; Build Supplies</title>
+	<style>
+		:root {
+			color-scheme: dark;
+			--ink: #edf4ed;
+			--muted: #9eada3;
+			--panel: #172321;
+			--panel-soft: #1d2c28;
+			--line: rgba(235, 246, 235, .11);
+			--accent: #c6f36b;
+			--accent-dark: #9dcc48;
+			--bg: #101a19;
+		}
+		* { box-sizing: border-box; }
+		html { scroll-behavior: smooth; }
+		body {
+			margin: 0;
+			min-width: 320px;
+			background: var(--bg);
+			color: var(--ink);
+			font: 15px/1.55 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+		}
+		button, input { font: inherit; }
+		button, a { -webkit-tap-highlight-color: transparent; }
+		a { color: inherit; text-decoration: none; }
+		button { color: inherit; }
+		.site-header { position: sticky; z-index: 5; top: 0; border-bottom: 1px solid var(--line); background: rgba(16, 26, 25, .92); backdrop-filter: blur(16px); }
+		.header-inner { width: min(1240px, calc(100% - 40px)); min-height: 74px; margin: auto; display: flex; align-items: center; gap: 28px; }
+		.brand { display: inline-flex; align-items: center; gap: 11px; flex-shrink: 0; padding: 0; border: 0; background: none; color: inherit; text-align: left; cursor: pointer; }
+		.brand-mark { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 12px; background: var(--accent); color: #172117; font-size: 15px; font-weight: 900; letter-spacing: -.08em; }
+		.brand-name { font-size: 16px; font-weight: 800; letter-spacing: -.035em; }
+		.brand-name span { color: var(--accent); }
+		.nav-links { display: flex; align-items: center; gap: 22px; color: var(--muted); font-size: 13px; }
+		.nav-links a:hover, .nav-links a:focus-visible { color: var(--ink); }
+		.header-actions { display: flex; align-items: center; gap: 12px; margin-left: auto; }
+		.text-button, .cart-button, .company-link { border: 0; cursor: pointer; }
+		.text-button { padding: 8px; background: none; color: var(--muted); }
+		.cart-button { padding: 10px 15px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); font-size: 13px; font-weight: 700; }
+		.cart-count { display: inline-grid; min-width: 20px; height: 20px; margin-left: 6px; padding: 0 5px; place-items: center; border-radius: 20px; background: var(--accent); color: #172117; font-size: 11px; }
+		.page { width: min(1240px, calc(100% - 40px)); margin: auto; }
+		.hero { min-height: 360px; margin: 30px 0 24px; padding: clamp(26px, 5vw, 58px); position: relative; display: flex; align-items: center; overflow: hidden; border: 1px solid var(--line); border-radius: 22px; background: #23322d; }
+		.hero::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(13, 23, 21, .97) 0%, rgba(13, 23, 21, .83) 42%, rgba(13, 23, 21, .12) 100%), url("https://images.unsplash.com/photo-1473968512647-3e447244af8f?auto=format&fit=crop&w=1800&q=85") center 48% / cover; }
+		.hero-content { max-width: 590px; position: relative; z-index: 1; }
+		.eyebrow { display: inline-flex; align-items: center; gap: 8px; color: var(--accent); font-size: 11px; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
+		.eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 14px var(--accent); }
+		h1 { margin: 13px 0 12px; font-size: clamp(36px, 5vw, 58px); line-height: 1.04; letter-spacing: -.055em; }
+		.hero p { max-width: 500px; margin: 0; color: #c6d1c9; font-size: 15px; }
+		.hero-cta { display: inline-flex; align-items: center; gap: 9px; margin-top: 25px; padding: 12px 17px; border-radius: 9px; background: var(--accent); color: #172117; font-size: 13px; font-weight: 800; }
+		.hero-cta:hover { background: #d7ff8b; transform: translateY(-1px); }
+		.feature-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 34px; }
+		.feature { display: flex; align-items: center; gap: 12px; min-height: 68px; padding: 12px 16px; border: 1px solid var(--line); border-radius: 12px; background: rgba(255,255,255,.025); }
+		.feature-icon { width: 34px; height: 34px; display: grid; flex-shrink: 0; place-items: center; border-radius: 10px; background: rgba(198,243,107,.1); color: var(--accent); font-size: 17px; }
+		.feature strong, .feature span { display: block; }
+		.feature strong { font-size: 12px; }
+		.feature span { margin-top: 2px; color: var(--muted); font-size: 11px; }
+		.shop-toolbar { display: flex; align-items: end; justify-content: space-between; gap: 18px; margin: 0 0 16px; }
+		.section-kicker { color: var(--accent); font-size: 10px; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
+		.shop-toolbar h2 { margin: 4px 0 0; font-size: 25px; letter-spacing: -.04em; }
+		.search-wrap { position: relative; width: min(290px, 100%); }
+		.search-wrap span { position: absolute; top: 50%; left: 13px; color: var(--muted); transform: translateY(-50%); }
+		#product-search { width: 100%; padding: 11px 14px 11px 37px; border: 1px solid var(--line); border-radius: 10px; outline: none; background: var(--panel); color: var(--ink); font-size: 12px; }
+		#product-search:focus { border-color: var(--accent); }
+		.category-nav { display: flex; gap: 8px; overflow-x: auto; padding: 3px 1px 14px; scrollbar-width: thin; scrollbar-color: #45554c transparent; }
+		.category-nav a { flex: 0 0 auto; padding: 8px 13px; border: 1px solid var(--line); border-radius: 999px; color: #b7c3ba; font-size: 11px; font-weight: 700; }
+		.category-nav a:hover, .category-nav a:focus-visible { border-color: var(--accent); color: var(--accent); }
+		.category-section { padding: 19px 0 11px; scroll-margin-top: 90px; }
+		.category-heading { display: flex; align-items: end; justify-content: space-between; gap: 12px; margin-bottom: 13px; }
+		.category-heading h3 { margin: 0; font-size: 19px; letter-spacing: -.035em; }
+		.category-heading p { margin: 3px 0 0; color: var(--muted); font-size: 11px; }
+		.scroll-hint { color: var(--muted); font-size: 10px; }
+		.product-row { display: grid; grid-auto-columns: minmax(230px, 1fr); grid-auto-flow: column; gap: 13px; overflow-x: auto; overscroll-behavior-inline: contain; scroll-snap-type: x mandatory; padding: 0 1px 16px; scrollbar-width: thin; scrollbar-color: #45554c transparent; }
+		.product-card { min-width: 0; overflow: hidden; scroll-snap-align: start; border: 1px solid var(--line); border-radius: 15px; background: var(--panel); transition: transform .18s ease, border-color .18s ease; }
+		.product-card:hover { transform: translateY(-3px); border-color: rgba(198,243,107,.45); }
+		.product-image { height: 170px; position: relative; overflow: hidden; background: linear-gradient(135deg, #293d35, #172321); }
+		.product-image img { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform .3s ease; }
+		.product-card:hover .product-image img { transform: scale(1.04); }
+		.product-tag { position: absolute; top: 11px; left: 11px; padding: 5px 8px; border: 1px solid rgba(255,255,255,.15); border-radius: 999px; background: rgba(16,26,25,.82); color: #d8e3d9; font-size: 9px; font-weight: 700; backdrop-filter: blur(8px); }
+		.product-info { padding: 14px; }
+		.product-type { color: var(--accent); font-size: 9px; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; }
+		.product-title { margin: 5px 0 6px; font-size: 14px; line-height: 1.3; }
+		.product-description { min-height: 37px; margin: 0; color: var(--muted); font-size: 10px; line-height: 1.55; }
+		.product-bottom { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 13px; }
+		.price { font-size: 16px; font-weight: 800; letter-spacing: -.04em; }
+		.price-note { display: block; margin-top: -1px; color: var(--muted); font-size: 9px; font-weight: 500; letter-spacing: 0; }
+		.add-button { padding: 8px 10px; border: 0; border-radius: 8px; background: var(--accent); color: #192318; cursor: pointer; font-size: 10px; font-weight: 800; }
+		.add-button:hover { background: #d7ff8b; }
+		.empty-state { display: none; padding: 32px 16px; border: 1px dashed var(--line); border-radius: 14px; color: var(--muted); text-align: center; }
+		.about-banner { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin: 34px 0 44px; padding: 22px 24px; border: 1px solid rgba(198,243,107,.2); border-radius: 15px; background: linear-gradient(110deg, rgba(198,243,107,.09), rgba(255,255,255,.02)); }
+		.about-banner h2 { margin: 3px 0 5px; font-size: 20px; letter-spacing: -.04em; }
+		.about-banner p { margin: 0; color: var(--muted); font-size: 12px; }
+		.company-link { flex: 0 0 auto; padding: 10px 14px; border: 1px solid rgba(198,243,107,.45); border-radius: 9px; background: transparent; color: var(--accent); font-size: 11px; font-weight: 800; }
+		.company-link:hover { background: rgba(198,243,107,.1); }
+		footer { border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; }
+		.footer-inner { width: min(1240px, calc(100% - 40px)); margin: auto; padding: 22px 0; display: flex; justify-content: space-between; gap: 15px; }
+		dialog { width: min(540px, calc(100% - 28px)); max-height: min(84vh, 720px); padding: 0; overflow: auto; border: 1px solid rgba(255,255,255,.15); border-radius: 18px; background: #172321; color: var(--ink); box-shadow: 0 25px 100px rgba(0,0,0,.55); }
+		dialog::backdrop { background: rgba(5,12,11,.75); backdrop-filter: blur(5px); }
+		.dialog-content { padding: 23px; }
+		.dialog-head { display: flex; align-items: start; justify-content: space-between; gap: 14px; padding-bottom: 15px; border-bottom: 1px solid var(--line); }
+		.dialog-head h2 { margin: 3px 0 0; font-size: 22px; letter-spacing: -.04em; }
+		.close-button { width: 32px; height: 32px; flex: 0 0 auto; border: 1px solid var(--line); border-radius: 9px; background: transparent; cursor: pointer; }
+		.company-summary { color: #bfcbc1; font-size: 13px; }
+		.company-summary h3 { margin: 19px 0 5px; color: var(--ink); font-size: 14px; }
+		.company-summary p { margin: 8px 0; }
+		.company-summary ul { padding-left: 19px; }
+		.company-summary li { margin: 5px 0; }
+		.dialog-note { margin-top: 18px; padding: 11px 12px; border-radius: 9px; background: rgba(198,243,107,.08); color: #cfe0c8; font-size: 10px; }
+		.cart-list { display: grid; gap: 10px; padding: 16px 0; }
+		.cart-line { display: flex; justify-content: space-between; gap: 14px; color: #c5d0c7; font-size: 12px; }
+		.cart-total { display: flex; justify-content: space-between; padding-top: 13px; border-top: 1px solid var(--line); font-weight: 800; }
+		.checkout-note { color: var(--muted); font-size: 10px; }
+		@media (max-width: 720px) {
+			.header-inner, .page, .footer-inner { width: min(100% - 28px, 1240px); }
+			.header-inner { min-height: 64px; gap: 14px; }
+			.nav-links { display: none; }
+			.hero { min-height: 335px; margin-top: 16px; }
+			.hero::before { background: linear-gradient(90deg, rgba(13,23,21,.96), rgba(13,23,21,.7) 75%, rgba(13,23,21,.35)), url("https://images.unsplash.com/photo-1473968512647-3e447244af8f?auto=format&fit=crop&w=1200&q=80") center / cover; }
+			.feature-strip { grid-template-columns: 1fr; gap: 7px; margin-bottom: 26px; }
+			.feature { min-height: 58px; }
+			.shop-toolbar { align-items: stretch; flex-direction: column; }
+			.search-wrap { width: 100%; }
+			.product-row { grid-auto-columns: minmax(225px, 78vw); }
+			.about-banner { align-items: flex-start; flex-direction: column; margin: 24px 0 32px; }
+			.footer-inner { flex-direction: column; }
+		}
+		@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+	</style>
+</head>
+<body>
+	<header class="site-header">
+		<div class="header-inner">
+			<button class="brand" type="button" data-open-company aria-label="About F4 Drones" aria-haspopup="dialog">
+				<span class="brand-mark" aria-hidden="true">F4</span>
+				<span class="brand-name">F4 <span>DRONES</span></span>
+			</button>
+			<nav class="nav-links" aria-label="Main navigation">
+				<a href="#catalog">Shop parts</a>
+				<a href="#frames">Build essentials</a>
+				<a href="#about">About F4</a>
+			</nav>
+			<div class="header-actions">
+				<a class="text-button" href="index.html">Home</a>
+				<button class="cart-button" id="open-cart" type="button" aria-haspopup="dialog">Cart <span class="cart-count" id="cart-count">0</span></button>
+			</div>
+		</div>
+	</header>
+
+	<main class="page" id="top">
+		<section class="hero" aria-labelledby="hero-title">
+			<div class="hero-content">
+				<span class="eyebrow">Parts for your next flight</span>
+				<h1 id="hero-title">Build it. Tune it.<br />Take it further.</h1>
+				<p>Thoughtful components for FPV pilots, aerial creators, and hands-on builders. Find the right parts for a dependable setup.</p>
+				<a class="hero-cta" href="#catalog">Explore the parts <span aria-hidden="true">↘</span></a>
+			</div>
+		</section>
+
+		<section class="feature-strip" aria-label="Store highlights">
+			<div class="feature"><span class="feature-icon" aria-hidden="true">⌁</span><div><strong>Build-ready components</strong><span>Parts selected to work together</span></div></div>
+			<div class="feature"><span class="feature-icon" aria-hidden="true">◎</span><div><strong>Specs made clear</strong><span>Check fit, voltage, and compatibility</span></div></div>
+			<div class="feature"><span class="feature-icon" aria-hidden="true">✦</span><div><strong>Made for every mission</strong><span>From first build to field spares</span></div></div>
+		</section>
+
+		<section id="catalog" aria-labelledby="catalog-title">
+			<div class="shop-toolbar">
+				<div><span class="section-kicker">The parts counter</span><h2 id="catalog-title">Shop drone components</h2></div>
+				<label class="search-wrap"><span aria-hidden="true">⌕</span><input id="product-search" type="search" placeholder="Search parts or specs…" aria-label="Search drone parts" /></label>
+			</div>
+			<nav class="category-nav" aria-label="Jump to a product category">
+				<a href="#motors">Motors &amp; props</a><a href="#electronics">Flight electronics</a><a href="#frames">Frames &amp; hardware</a><a href="#power">Batteries &amp; power</a><a href="#camera">Cameras &amp; FPV</a>
+			</nav>
+			<div id="product-catalog"></div>
+			<div class="empty-state" id="empty-state" role="status">No parts match that search. Try another name or specification.</div>
+		</section>
+
+		<section class="about-banner" id="about">
+			<div><span class="section-kicker">Meet the company</span><h2>F4 Drones — built around the joy of flight.</h2><p>Get to know our purpose, product approach, and the kind of support we aim to provide.</p></div>
+			<button class="company-link" type="button" data-open-company>About F4 Drones <span aria-hidden="true">↗</span></button>
+		</section>
+	</main>
+
+	<footer><div class="footer-inner"><span>© 2026 F4 Drones · Parts, tools &amp; build inspiration</span><span>Always verify local flight rules and component compatibility before takeoff.</span></div></footer>
+
+	<dialog id="company-dialog" aria-labelledby="company-title">
+		<div class="dialog-content">
+			<div class="dialog-head"><div><span class="section-kicker">Company profile</span><h2 id="company-title">F4 Drones</h2></div><button class="close-button" type="button" data-close-dialog aria-label="Close">✕</button></div>
+			<div class="company-summary">
+				<p><strong>Brief:</strong> F4 Drones is a drone-parts and build-support brand concept for pilots and makers who want carefully described components, practical guidance, and the confidence to create a setup that suits their flying.</p>
+				<h3>Our fuller story</h3>
+				<p>We bring the essentials of a drone build into one approachable place: propulsion, frames, flight electronics, power, and FPV equipment. Whether you are replacing a worn propeller or planning a custom quad, our aim is to make the options easier to compare and the next step easier to understand.</p>
+				<p>F4 Drones puts clear specifications and responsible setup advice first. We encourage builders to check frame dimensions, connector types, voltage ranges, firmware support, and local regulations before ordering or flying. A component that fits your mission—and the rest of your build—is more useful than a part chosen by headline specs alone.</p>
+				<h3>What we aim to offer</h3>
+				<ul><li>A focused range of parts for custom FPV and camera-drone builds.</li><li>Useful product details to help with fit and compatibility decisions.</li><li>Friendly guidance for maintenance, upgrades, and learning the basics.</li><li>A community-minded approach to safe, responsible flying.</li></ul>
+				<div class="dialog-note">This is a sample company profile for the storefront design. Replace it with F4 Drones’ verified history, location, policies, and contact details before publishing as a real business.</div>
+			</div>
+		</div>
+	</dialog>
+
+	<dialog id="cart-dialog" aria-labelledby="cart-title">
+		<div class="dialog-content">
+			<div class="dialog-head"><div><span class="section-kicker">Your selection</span><h2 id="cart-title">Shopping cart</h2></div><button class="close-button" type="button" data-close-dialog aria-label="Close">✕</button></div>
+			<div class="cart-list" id="cart-list"></div>
+			<div class="cart-total"><span>Subtotal</span><span id="cart-total">$0.00</span></div>
+			<p class="checkout-note">Demo storefront: no payment or order is submitted. Shipping and taxes are not included.</p>
+		</div>
+	</dialog>
+
+	<script>
+		const categories = [
+			{ id: "motors", title: "Motors & props", description: "Smooth power, efficient thrust, and dependable spares.", products: [
+				{ name: "AeroCore 2207 Brushless Motor", type: "Motor · 1750 KV", price: 24.9, tag: "Popular", detail: "For 5-inch freestyle builds; check your battery voltage and frame clearance.", image: "photo-1508615070457-7baeba4003ab" },
+				{ name: "AeroCore 2306 Brushless Motor", type: "Motor · 1950 KV", price: 22.5, tag: "Freestyle", detail: "Responsive 5-inch motor option with a durable bell and standard mounting pattern.", image: "photo-1473968512647-3e447244af8f" },
+				{ name: "TriBlade 5-inch Prop Set", type: "Propellers · 4 pairs", price: 8.95, tag: "Field essential", detail: "Tri-blade set for common 5-inch builds; includes clockwise and counter-clockwise props.", image: "photo-1506947411487-a56738267384" },
+				{ name: "MicroWhoop 1204 Motor Pair", type: "Motor · 5000 KV", price: 19.0, tag: "Lightweight", detail: "Compact motor pair for compatible micro frames; confirm shaft and connector sizes.", image: "photo-1527977966376-1c8408f9f108" }
+			]},
+			{ id: "electronics", title: "Flight electronics", description: "The control and connection layer at the heart of your aircraft.", products: [
+				{ name: "Apex F7 Flight Controller", type: "Flight controller · F7", price: 59.0, tag: "Builder pick", detail: "32-bit controller with a 30.5 × 30.5 mm mounting pattern and onboard OSD support.", image: "photo-1518770660439-4636190af475" },
+				{ name: "4-in-1 45A ESC", type: "ESC · 3–6S", price: 54.5, tag: "4-in-1", detail: "Four-channel speed controller for compatible builds; verify current draw and firmware.", image: "photo-1581091226825-a6a2a5aee158" },
+				{ name: "Nano GPS & Compass Module", type: "Navigation · GPS", price: 32.0, tag: "Navigation", detail: "Compact positioning module with compass for supported flight stacks and firmware.", image: "photo-1519389950473-47ba0277781c" },
+				{ name: "ELRS Nano Receiver", type: "Receiver · 2.4 GHz", price: 18.75, tag: "Low latency", detail: "Small serial receiver for compatible ExpressLRS radio systems; antenna included.", image: "photo-1555617981-dac3880eac6e" }
+			]},
+			{ id: "frames", title: "Frames & hardware", description: "A solid foundation, plus the small parts that keep a build together.", products: [
+				{ name: "Ranger 5-inch Carbon Frame", type: "Frame · 5-inch", price: 69.0, tag: "Freestyle", detail: "Durable carbon-fiber frame with a 30.5 mm stack mount and replaceable arms.", image: "photo-1473968512647-3e447244af8f" },
+				{ name: "CineLite 3.5-inch Frame Kit", type: "Frame · 3.5-inch", price: 48.0, tag: "Cinematic", detail: "Compact frame layout for lightweight builds; review prop and camera clearance.", image: "photo-1506947411487-a56738267384" },
+				{ name: "M3 Build Hardware Pack", type: "Hardware · 60 pieces", price: 12.5, tag: "Workshop", detail: "Assorted low-profile screws, nuts, and soft mounts for common drone repairs.", image: "photo-1581092160562-40aa08e78837" },
+				{ name: "Landing Pad & Tool Mat", type: "Workshop · 55 cm", price: 21.0, tag: "Packable", detail: "Foldable field mat to help keep a small aircraft and loose hardware off the ground.", image: "photo-1500530855697-b586d89ba3ee" }
+			]},
+			{ id: "power", title: "Batteries & power", description: "Power options and charging essentials for a well-planned session.", products: [
+				{ name: "LiPo 1300 mAh 6S Pack", type: "Battery · 22.2 V", price: 34.0, tag: "6S power", detail: "High-discharge pack for compatible 5-inch builds; use a balance charger and inspect before use.", image: "photo-1609091839311-d5365f9ff1c5" },
+				{ name: "LiPo 850 mAh 4S Pack", type: "Battery · 14.8 V", price: 23.5, tag: "Compact", detail: "Compact pack for suitable 4S aircraft; verify connector, dimensions, and current needs.", image: "photo-1581092160607-ee22621dd758" },
+				{ name: "Balance Charger 2–6S", type: "Charger · AC powered", price: 46.0, tag: "Workshop", detail: "Multi-cell balance charger with selectable charge modes and a clear status display.", image: "photo-1581092335878-2d9ff86ca2bf" },
+				{ name: "XT60 Silicone Lead Set", type: "Power · 3 pairs", price: 9.5, tag: "Spare parts", detail: "Flexible silicone wire and XT60 connectors for repairs by a suitably experienced builder.", image: "photo-1558618666-fcd25c85cd64" }
+			]},
+			{ id: "camera", title: "Cameras & FPV", description: "See your setup clearly, from onboard camera to the pilot view.", products: [
+				{ name: "Vista Mini FPV Camera", type: "Camera · 1200 TVL", price: 29.0, tag: "Low-light", detail: "Compact analog camera with adjustable settings for compatible FPV systems.", image: "photo-1516035069371-29a1b244cc32" },
+				{ name: "Digital Air Unit Kit", type: "FPV video · HD", price: 149.0, tag: "HD video", detail: "Digital video transmitter and camera kit; confirm goggles, power, and antenna compatibility.", image: "photo-1519389950473-47ba0277781c" },
+				{ name: "Low-Latency FPV Goggles", type: "FPV · 5.8 GHz", price: 119.0, tag: "Pilot gear", detail: "Diversity receiver goggles with adjustable focus and a comfortable field strap.", image: "photo-1524143986875-3b098d78b363" },
+				{ name: "RHCP Patch & Omni Antenna Set", type: "Antenna · 5.8 GHz", price: 26.0, tag: "Signal kit", detail: "Circular-polarized antenna pair; match connector type and polarization across your link.", image: "photo-1518770660439-4636190af475" }
+			]}
+		];
+
+		const money = value => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(value);
+		const catalog = document.getElementById("product-catalog");
+		const cart = new Map();
+		const catalogImage = product => `https://images.unsplash.com/${product.image}?auto=format&fit=crop&w=720&h=480&q=78`;
+
+		function renderCatalog(query = "") {
+			const term = query.trim().toLowerCase();
+			let shown = 0;
+			catalog.innerHTML = categories.map(category => {
+				const products = category.products.filter(product => `${product.name} ${product.type} ${product.detail} ${product.tag}`.toLowerCase().includes(term));
+				shown += products.length;
+				if (!products.length) return "";
+				return `<section class="category-section" id="${category.id}" aria-labelledby="heading-${category.id}">
+					<div class="category-heading"><div><h3 id="heading-${category.id}">${category.title}</h3><p>${category.description}</p></div><span class="scroll-hint">Scroll to explore →</span></div>
+					<div class="product-row" aria-label="${category.title} products">${products.map((product, index) => `<article class="product-card">
+						<div class="product-image"><img src="${catalogImage(product)}" alt="${product.name}" loading="lazy" /><span class="product-tag">${product.tag}</span></div>
+						<div class="product-info"><span class="product-type">${product.type}</span><h4 class="product-title">${product.name}</h4><p class="product-description">${product.detail}</p>
+							  <div class="product-bottom"><span class="price">${money(product.price)}<span class="price-note">each</span></span><button class="add-button" type="button" data-category="${category.id}" data-name="${product.name}">Add to cart +</button></div>
+						</div></article>`).join("")}</div></section>`;
+			}).join("");
+			document.getElementById("empty-state").style.display = shown ? "none" : "block";
+			catalog.querySelectorAll(".add-button").forEach(button => button.addEventListener("click", () => addToCart(button)));
+		}
+
+		function addToCart(button) {
+			const product = categories.find(category => category.id === button.dataset.category).products.find(item => item.name === button.dataset.name);
+			cart.set(product.name, { ...product, quantity: (cart.get(product.name)?.quantity || 0) + 1 });
+			const count = [...cart.values()].reduce((sum, item) => sum + item.quantity, 0);
+			document.getElementById("cart-count").textContent = count;
+			button.textContent = "Added ✓";
+			window.setTimeout(() => { if (button.isConnected) button.textContent = "Add to cart +"; }, 900);
+		}
+
+		function renderCart() {
+			const items = [...cart.values()];
+			document.getElementById("cart-list").innerHTML = items.length ? items.map(item => `<div class="cart-line"><span>${item.name} × ${item.quantity}</span><strong>${money(item.price * item.quantity)}</strong></div>`).join("") : '<p class="checkout-note">Your cart is empty. Browse the parts counter to add something.</p>';
+			document.getElementById("cart-total").textContent = money(items.reduce((sum, item) => sum + item.price * item.quantity, 0));
+		}
+
+		document.getElementById("product-search").addEventListener("input", event => renderCatalog(event.target.value));
+		document.querySelectorAll("[data-open-company]").forEach(button => button.addEventListener("click", () => document.getElementById("company-dialog").showModal()));
+		document.getElementById("open-cart").addEventListener("click", () => { renderCart(); document.getElementById("cart-dialog").showModal(); });
+		document.querySelectorAll("[data-close-dialog]").forEach(button => button.addEventListener("click", () => button.closest("dialog").close()));
+		document.querySelectorAll("dialog").forEach(dialog => dialog.addEventListener("click", event => { if (event.target === dialog) dialog.close(); }));
+		renderCatalog();
+	</script>
+</body>
+</html>
