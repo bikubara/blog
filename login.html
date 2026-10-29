@@ -14,20 +14,24 @@
             justify-content: center;
             padding: 20px;
             font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa, #e2e8f0);
+            background: radial-gradient(circle at top right, rgba(198,243,107,.14), transparent 34%), linear-gradient(135deg, #101a19, #1a2924 55%, #0a1211);
+            color: #f2f6ef;
         }
         .card {
             width: min(100%, 420px);
-            background: white;
+            background: rgba(25,38,35,.88);
             padding: 24px;
+            border: 1px solid rgba(238,247,237,.14);
             border-radius: 16px;
-            box-shadow: 0 12px 35px rgba(0,0,0,0.12);
+            box-shadow: 0 20px 55px rgba(0,0,0,.32);
+            backdrop-filter: blur(12px);
         }
         h1 { margin-top: 0; text-align: center; }
         form { display: grid; gap: 10px; }
         label { font-weight: 600; }
-        input, button { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #cbd5e1; }
-        button { background: #2563eb; color: white; border: none; cursor: pointer; }
+        input, button { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid rgba(238,247,237,.16); }
+        input { background:#101a19; color:#f2f6ef; }
+        button { background: #c6f36b; color: #172117; border: none; cursor: pointer; font-weight:700; }
         @media (max-width: 480px) {
             .card { padding: 18px; }
         }

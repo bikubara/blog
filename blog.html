@@ -6,13 +6,13 @@
   <title>Recipe Gallery</title>
   <style>
     :root {
-      --bg: #0e1220;
-      --panel: #171d33;
-      --panel-2: #232a47;
-      --accent: #ffcc74;
-      --accent-2: #7fd2ff;
-      --text: #f8f5ff;
-      --muted: #c9c2e6;
+      --bg: #101a19;
+      --panel: #172321;
+      --panel-2: #20312b;
+      --accent: #c6f36b;
+      --accent-2: #9dcc48;
+      --text: #f2f6ef;
+      --muted: #a9b8ad;
       --border: rgba(255,255,255,0.12);
     }
 
@@ -22,57 +22,75 @@
       margin: 0;
       font-family: "Trebuchet MS", "Segoe UI", sans-serif;
       background:
-        radial-gradient(circle at top left, rgba(255,214,122,0.28), transparent 24%),
-        radial-gradient(circle at bottom right, rgba(127,210,255,0.2), transparent 28%),
-        linear-gradient(135deg, #11162b 0%, #1a2544 50%, #0a0f1d 100%);
+        radial-gradient(circle at top left, rgba(198,243,107,0.14), transparent 24%),
+        radial-gradient(circle at bottom right, rgba(73,132,103,0.18), transparent 28%),
+        linear-gradient(135deg, #101a19 0%, #1a2924 50%, #0a1211 100%);
       color: var(--text);
       min-height: 100vh;
       background-attachment: fixed;
     }
 
     .page {
-      width: 100%;
+      width: min(1180px, 100%);
       min-height: 100vh;
-      margin: 0;
-      padding: 24px;
+      margin: 0 auto;
+      padding: 28px;
       overflow-x: hidden;
     }
 
     .hero {
-      text-align: center;
-      margin-bottom: 20px;
+      position: relative;
+      text-align: left;
+      margin: 0 0 22px;
+      padding: 22px 24px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: linear-gradient(110deg, rgba(198,243,107,0.12), rgba(73,132,103,0.08));
+      box-shadow: 0 16px 42px rgba(0,0,0,0.18);
+    }
+
+    .hero::before {
+      content: "FOOD · RECIPES · MOVEMENT";
+      display: block;
+      margin-bottom: 7px;
+      color: var(--accent);
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.18em;
     }
 
     .hero h1 {
       margin: 0 0 8px;
-      font-size: 2rem;
-      color: #fff4d1;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      letter-spacing: -0.045em;
+      color: #eef7df;
     }
 
     .hero p {
       margin: 0;
       color: var(--muted);
+      max-width: 620px;
     }
 
     .game-shell {
       display: grid;
-      grid-template-columns: 360px 1fr;
-      gap: 18px;
+      grid-template-columns: minmax(270px, 330px) minmax(0, 1fr);
+      gap: 16px;
       align-items: start;
-      height: calc(100vh - 120px);
+      min-height: 620px;
     }
 
     .card {
-      background: linear-gradient(145deg, rgba(20,20,20,0.97), rgba(36,36,36,0.96));
-      border: 2px solid rgba(255,255,255,0.18);
-      border-radius: 5px;
+      background: linear-gradient(145deg, rgba(32,49,43,0.97), rgba(17,27,25,0.97));
+      border: 1px solid var(--border);
+      border-radius: 16px;
       box-shadow: 0 16px 40px rgba(0,0,0,0.28);
       overflow: hidden;
     }
 
     .sidebar {
-      padding: 14px;
-      height: 100%;
+      padding: 16px;
+      min-height: 620px;
     }
 
     .sidebar-head {
@@ -83,7 +101,7 @@
       font-weight: 700;
       letter-spacing: 0.06em;
       text-transform: uppercase;
-      color: #ffe7aa;
+      color: #c6f36b;
     }
 
     .recipe-list {
@@ -108,7 +126,7 @@
     .exercise-toggle {
       border: 0;
       background: transparent;
-      color: #ffe7aa;
+      color: #c6f36b;
       font-size: 0.92rem;
       font-weight: 700;
       letter-spacing: 0.16em;
@@ -139,7 +157,7 @@
       font-weight: 700;
       letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: #ffe7aa;
+      color: #c6f36b;
       margin-bottom: 8px;
     }
 
@@ -165,7 +183,7 @@
       background: rgba(255,255,255,0.14);
       border-color: rgba(255,255,255,0.4);
       transform: translateY(-1px);
-      box-shadow: 0 0 0 1px rgba(255,255,255,0.18), 0 0 10px rgba(255,214,122,0.22);
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.18), 0 0 10px rgba(198,243,107,0.2);
     }
 
     .recipe-group {
@@ -219,7 +237,7 @@
       justify-content: center;
       gap: 6px;
       position: relative;
-      box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 0 10px rgba(255,214,122,0.12);
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 0 10px rgba(198,243,107,0.12);
       transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
     }
 
@@ -278,8 +296,8 @@
       min-height: 100%;
       max-height: 100%;
       overflow-y: auto;
-      background: linear-gradient(135deg, #fff6da 0%, #ffd98f 35%, #ffb86b 100%);
-      color: #311b0f;
+      background: linear-gradient(145deg, #20312b, #172321 76%);
+      color: #f2f6ef;
       opacity: 0;
       transform: translateY(18px) scale(0.98);
       transition: opacity 0.5s ease, transform 0.5s ease;
@@ -305,14 +323,14 @@
       align-items: center;
       justify-content: center;
       border-radius: 5px;
-      background: linear-gradient(135deg, var(--accent), #ff7f50);
+      background: linear-gradient(135deg, var(--accent), #9dcc48);
       box-shadow: inset 0 0 0 1px rgba(255,255,255,0.2);
     }
 
     .detail-top h2 {
       margin: 0 0 6px;
       font-size: 1.5rem;
-      color: #6a2e1f;
+      color: #e6f4d0;
     }
 
     .detail-top p {
@@ -331,18 +349,18 @@
     .chip {
       padding: 6px 10px;
       border-radius: 5px;
-      background: rgba(255,255,255,0.28);
-      color: #5c2b13;
+      background: rgba(198,243,107,0.12);
+      color: #e2efdb;
       font-size: 0.9rem;
-      border: 1px solid rgba(92,43,19,0.12);
+      border: 1px solid rgba(198,243,107,0.22);
     }
 
     .ingredient-panel,
     .steps-panel {
       padding: 16px;
       border-radius: 5px;
-      background: rgba(255,255,255,0.35);
-      border: 1px solid rgba(92,43,19,0.12);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(198,243,107,0.16);
       backdrop-filter: blur(4px);
     }
 
@@ -350,7 +368,7 @@
     .steps-panel h3 {
       margin: 0 0 10px;
       font-size: 1.05rem;
-      color: #6a2e1f;
+      color: #d7edb4;
     }
 
     .ingredient-panel ul,
@@ -358,7 +376,7 @@
       padding-left: 18px;
       margin: 0;
       line-height: 1.8;
-      color: #5c2b13;
+      color: #c7d4ca;
     }
 
     .steps-panel {
@@ -376,6 +394,16 @@
 
       .game-shell {
         grid-template-columns: 1fr;
+        min-height: 0;
+      }
+
+      .sidebar {
+        min-height: 0;
+      }
+
+      .detail-card {
+        min-height: 420px;
+        max-height: none;
       }
 
       .recipe-list {
@@ -395,6 +423,11 @@
       .sidebar,
       .detail-card {
         padding: 12px;
+      }
+
+      .hero {
+        padding: 18px;
+        border-radius: 14px;
       }
     }
   </style>

@@ -1,102 +1,101 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="stylesheet" type="text/css" href="style.css" >
-    </head>
-    <body>
-        <header>
-            <div class="menu"></div>
-                DMS management system
-                <right><button onclick="window.location.href='login.html';">login/signup</button></right>
-        </header>
-
-            <!--        <iframe
-        src="https://www.youtube.com/@bikubara2077"
-        width="400"
-        height="200"
-        title="embedded example website"
-        style="border:none;">
-
-        </iframe><br>
-
-        -->
-        <!------------------ body elements starts here----------------->
-        <container>
-            <div id="item_container">
-                <div id="item"><a href="login.html">login</a></div>
-                <div id="item"><a href="blog.html">blog</a></div>
-                <div id="item"><a href="start_menu.html">game</a></div>
-                <div id="item"><a href="quiz.html">quiz</a></div>
-                <div id="item"><a href="store.html">store</a></div>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#101a19" />
+    <title>DMS Hub — Explore, learn, play</title>
+    <style>
+        :root { --bg:#101a19; --panel:#192623; --panel2:#20312b; --text:#f2f6ef; --muted:#a9b8ad; --line:rgba(238,247,237,.12); --accent:#c6f36b; }
+        * { box-sizing:border-box; }
+        html { scroll-behavior:smooth; }
+        body { margin:0; color:var(--text); background:linear-gradient(180deg,rgba(10,20,22,.25),rgba(10,20,22,.65)),url("https://images.unsplash.com/photo-1499346030926-9a72daac6c63?auto=format&fit=crop&w=2000&q=85") center/cover fixed; font:15px/1.55 Inter,system-ui,-apple-system,"Segoe UI",sans-serif; }
+        a { color:inherit; text-decoration:none; }
+        button { font:inherit; }
+        .topbar { position:sticky; top:0; z-index:4; border-bottom:1px solid var(--line); background:rgba(16,26,25,.92); backdrop-filter:blur(14px); }
+        .topbar-inner { width:min(1120px,calc(100% - 36px)); margin:auto; padding:16px 0 14px; display:flex; flex-direction:column; align-items:center; gap:12px; }
+        .brand { display:flex; align-items:center; gap:10px; font-size:15px; font-weight:800; letter-spacing:-.03em; }
+        .brand-icon { display:grid; width:38px; height:38px; place-items:center; border-radius:12px; background:var(--accent); color:#172117; font-size:13px; }
+        .brand span:last-child em { color:var(--accent); font-style:normal; }
+        .header-links { display:flex; width:100%; align-items:center; justify-content:space-between; gap:18px; }
+        .nav { display:flex; align-items:center; justify-content:center; gap:22px; color:var(--muted); font-size:12px; }
+        .nav a:hover { color:var(--accent); }
+        .top-actions { display:flex; align-items:center; gap:12px; }
+        .login-link { padding:9px 14px; border:1px solid var(--line); border-radius:9px; font-size:12px; font-weight:700; }
+        .login-link:hover { border-color:var(--accent); color:var(--accent); }
+        main { width:min(1120px,calc(100% - 36px)); margin:auto; }
+        .hero { position:relative; isolation:isolate; display:flex; min-height:360px; align-items:center; margin:30px 0 18px; padding:clamp(26px,6vw,64px); overflow:hidden; border:1px solid var(--line); border-radius:22px; background:linear-gradient(120deg,rgba(29,48,41,.82),rgba(24,37,34,.76) 70%,rgba(39,55,45,.8)); backdrop-filter:blur(2px); }
+        .hero::after { content:"✦"; position:absolute; z-index:-1; right:8%; top:4%; color:rgba(198,243,107,.1); font-size:clamp(200px,30vw,360px); line-height:1; transform:rotate(-12deg); }
+        .hero-copy { max-width:620px; }
+        .eyebrow { color:var(--accent); font-size:10px; font-weight:800; letter-spacing:.18em; text-transform:uppercase; }
+        h1 { margin:12px 0 14px; font-size:clamp(38px,6vw,64px); line-height:1.02; letter-spacing:-.06em; }
+        .hero p { max-width:520px; margin:0; color:#c0cdc3; font-size:15px; }
+        .hero-links { display:flex; flex-wrap:wrap; gap:10px; margin-top:24px; }
+        .primary-link,.secondary-link { display:inline-flex; align-items:center; gap:9px; padding:11px 15px; border-radius:9px; font-size:12px; font-weight:800; }
+        .primary-link { background:var(--accent); color:#172117; }
+        .primary-link:hover { background:#d8ff8d; }
+        .secondary-link { border:1px solid rgba(255,255,255,.2); background:rgba(255,255,255,.04); }
+        .secondary-link:hover { border-color:var(--accent); color:var(--accent); }
+        .section-heading { display:flex; align-items:end; justify-content:space-between; gap:14px; margin:32px 0 14px; }
+        .section-heading h2 { margin:3px 0 0; font-size:23px; letter-spacing:-.04em; }
+        .section-heading p { margin:0; color:var(--muted); font-size:11px; }
+        .kicker { color:var(--accent); font-size:9px; font-weight:800; letter-spacing:.15em; text-transform:uppercase; }
+        .quick-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+        .quick-card { display:flex; min-height:218px; flex-direction:column; padding:20px; border:1px solid var(--line); border-radius:16px; background:linear-gradient(145deg,rgba(32,49,43,.78),rgba(25,38,35,.76)); backdrop-filter:blur(8px); transition:transform .18s ease,border-color .18s ease; }
+        .quick-card:hover { transform:translateY(-3px); border-color:rgba(198,243,107,.55); }
+        .card-icon { display:grid; width:44px; height:44px; place-items:center; border-radius:13px; background:rgba(198,243,107,.1); color:var(--accent); font-size:22px; }
+        .quick-card h3 { margin:16px 0 6px; font-size:17px; letter-spacing:-.03em; }
+        .quick-card p { margin:0; color:var(--muted); font-size:12px; }
+        .card-link { display:flex; justify-content:space-between; align-items:center; margin-top:auto; padding-top:18px; color:var(--accent); font-size:11px; font-weight:800; }
+        .status-card { display:flex; align-items:center; gap:14px; margin:24px 0 40px; padding:16px 18px; border:1px solid var(--line); border-radius:13px; background:rgba(20,31,29,.68); backdrop-filter:blur(8px); }
+        .status-dot { width:10px; height:10px; flex:0 0 auto; border-radius:50%; background:#f6bd65; box-shadow:0 0 12px rgba(246,189,101,.5); }
+        .status-card strong { display:block; font-size:12px; }
+        .status-card p { margin:2px 0 0; color:var(--muted); font-size:11px; }
+        footer { border-top:1px solid var(--line); background:rgba(0,0,0,.12); }
+        .footer-inner { width:min(1120px,calc(100% - 36px)); margin:auto; padding:25px 0; display:flex; justify-content:space-between; align-items:center; gap:20px; color:var(--muted); font-size:11px; }
+        .socials { display:flex; gap:8px; }
+        .socials a { display:grid; width:32px; height:32px; place-items:center; border:1px solid var(--line); border-radius:9px; }
+        .socials a:hover { border-color:var(--accent); }
+        .socials img { width:16px; height:16px; object-fit:contain; }
+        @media (max-width:700px) { .topbar-inner { width:calc(100% - 24px); padding:14px 0; gap:11px; } .header-links { gap:8px; } .nav { gap:clamp(8px,3vw,14px); font-size:11px; } .login-link { padding:8px 9px; white-space:nowrap; font-size:11px; } .hero { min-height:330px; margin-top:16px; } .quick-grid { grid-template-columns:1fr; } .quick-card { min-height:180px; } .section-heading { align-items:start; flex-direction:column; } .footer-inner { align-items:flex-start; flex-direction:column; } }
+        @media (prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto !important; transition-duration:.01ms !important; } }
+    </style>
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-inner">
+            <a class="brand" href="#home" aria-label="DMS Management System home"><span class="brand-icon">DMS</span><span>DMS <em>MANAGEMENT SYSTEM</em></span></a>
+            <div class="header-links">
+                <nav class="nav" aria-label="Main navigation"><a href="#explore">Explore</a><a href="blog.html">Blog</a><a href="store.html">FPV store</a></nav>
+                <div class="top-actions"><a class="login-link" href="login.html">Log in / Sign up</a></div>
             </div>
-            <div>
-                <button class="button">add</button>
+        </div>
+    </header>
+
+    <main id="home">
+        <section class="hero">
+            <div class="hero-copy">
+                <span class="eyebrow">A small hub for big ideas</span>
+                <h1>Explore something<br />new today.</h1>
+                <p>Discover recipes, try a quick game, and explore our FPV drone parts shop—all gathered in one friendly place.</p>
+                <div class="hero-links"><a class="primary-link" href="#explore">Explore the hub <span aria-hidden="true">↘</span></a><a class="secondary-link" href="login.html">Join the community</a></div>
             </div>
-            <br>
-        </container>
-        <container>
-            currently offline
-        </container>
+        </section>
 
-
-
-        <footer>
-            <div class="footer-content">
-                <img src="src/star-wars-1-logo-png-transparent.png" alt="Company logo" style="max-width:180px; margin:0 auto 12px;">
-                
-                <div class="footer-address">
-                    <img src="src/mark.png" alt="Location icon" style="height:var(--location_size);width:var(--location_size);">
-                    <addr><b>corporate address:</b><br>upper bazar sahid chowk ranchi jharkhand india 825001</addr>
-                </div>
-                
-                <div class="footer-address">
-                    <img src="src/mark.png" alt="Location icon" style="height:var(--location_size);width:var(--location_size);">
-                    <addr><b>registered address:</b><br>new market chowk new delhi india 82190</addr>
-                </div>
-                
-                <div id="social_container">
-                    <div id="facebook" class="logo"><img src="src/social/facebook.png" alt="Facebook" style="object-fit:fill;"></div>
-                    <div id="insta" class="logo"><img src="src/social/instagram.png" alt="Instagram" style="object-fit:fill;"></div>
-                    <div id="x" class="logo"><img src="src/social/x.png" alt="X" style="object-fit:fill;"></div>
-                    <div id="linkdin" class="logo"><img src="src/social/linkedin.png" alt="LinkedIn" style="object-fit:fill;"></div>
-                    <div id="youtube" class="logo"><img src="src/social/youtube.png" alt="YouTube" style="object-fit:fill;"></div>
-                </div>
-                  
-                <div class="store-buttons">
-                    <a class="store-btn" style="height:var(--location_size);width:var(--location_w);"  href="#" aria-label="Get it on Google Play"><img src="src/play_store.png" alt="Google Play"></a>
-                    <a class="store-btn" style="height:var(--location_size);width:var(--location_width;" href="#" aria-label="Download on the App Store"><img src="src/apple_store.png" alt="App Store"></a>
-                </div>
-                
-                <button class="button">advertisment with us</button><br>
-                <b>company</b><br>
-                about us<br>
-                legal<br>
-                privacy policy<br>
-                careers<br>
-                contact us<br>
-                corporate solutions<br>
-                campus training programme<br>
-                <b>explore</b><br>
-                connect<br>
-                blogs<br>
-                nation skill up <br>
-                <b>tutorials</b><br>
-                DSA<br>
-                GATE<br>
-                <b>courses</b><br>
-                IBM certificate<br>
-                web development<br>
-                <b>offline centeres</b><br>
-                ranchi<br>
-                delhi<br>
-                <b>preparataion corner</b><br>
-                aptitude <br>
-                puzzles<br>
-                <hr>
-                @fantastc4,goland education private limited, all rights reserved
+        <section id="explore" aria-labelledby="explore-title">
+            <div class="section-heading"><div><span class="kicker">Your next click</span><h2 id="explore-title">Explore the hub</h2></div><p>Choose a place to start.</p></div>
+            <div class="quick-grid">
+                <a class="quick-card" href="blog.html"><span class="card-icon" aria-hidden="true">🍲</span><h3>Recipe Gallery</h3><p>Browse comforting recipes, check ingredients, and follow simple preparation steps.</p><span class="card-link">Explore recipes <span aria-hidden="true">→</span></span></a>
+                <a class="quick-card" href="start_menu.html"><span class="card-icon" aria-hidden="true">✦</span><h3>Quick Game</h3><p>Take a short break with a simple game. Easy to start and ready when you are.</p><span class="card-link">Play a game <span aria-hidden="true">→</span></span></a>
+                <a class="quick-card" href="store.html"><span class="card-icon" aria-hidden="true">⌁</span><h3>F4 FPV Parts Store</h3><p>Explore FPV drone assembly parts, from motors and frames to wiring and power.</p><span class="card-link">Shop FPV parts <span aria-hidden="true">→</span></span></a>
             </div>
-    
-    </body>
+        </section>
+
+        <section class="status-card" aria-label="Site status">
+            <span class="status-dot" aria-hidden="true"></span><div><strong>Some sections are still in progress</strong><p>We’re building out more features. Check back soon for updates and new ways to explore.</p></div>
+        </section>
+    </main>
+
+    <footer><div class="footer-inner"><span>© 2026 DMS Hub · Explore, learn, and play.</span><nav class="socials" aria-label="Social media"><a href="https://www.youtube.com/@bikubara" aria-label="YouTube"><img src="src/social/youtube.png" alt=""></a><a href="https://www.instagram.com/bikubara_forbidden_404_infj_d" aria-label="Instagram"><img src="src/social/instagram.png" alt=""></a><a href="https://www.linkedin.com/in/bikubara" aria-label="LinkedIn"><img src="src/social/linkedin.png" alt=""></a></nav></div></footer>
+</body>
 </html>

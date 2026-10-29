@@ -5,21 +5,21 @@
     <title>Catch the Stars — Simple HTML Game</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <style>
-        :root{--bg:#0b1220;--panel:#0f1a2b;--accent:#ffd54a;--danger:#ff6b6b}
-        html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:linear-gradient(180deg,var(--bg),#07101a);color:#e6eef8}
+        :root{--bg:#101a19;--panel:#172321;--accent:#c6f36b;--danger:#ff6b6b}
+        html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(circle at top,rgba(198,243,107,.1),transparent 35%),linear-gradient(180deg,var(--bg),#0a1211);color:#f2f6ef}
         .wrap{min-height:100%;display:flex;align-items:center;justify-content:center;padding:24px;box-sizing:border-box}
-        .card{width:min(100%, 360px);background:linear-gradient(180deg,var(--panel),#081323);border-radius:12px;padding:14px;box-shadow:0 8px 30px rgba(2,6,23,0.6);text-align:center}
+        .card{width:min(100%, 360px);background:linear-gradient(180deg,#20312b,var(--panel));border:1px solid rgba(238,247,237,.12);border-radius:16px;padding:14px;box-shadow:0 18px 45px rgba(0,0,0,0.35);text-align:center}
         h1{font-size:18px;margin:6px 0 10px}
-        canvas{display:block;background:#061226;border-radius:8px;width:100%;height:auto;touch-action:none}
-        .hud{display:flex;justify-content:space-between;align-items:center;margin:10px 4px 0 4px;font-size:13px;color:#cfe7ff}
+        canvas{display:block;background:#101a19;border:1px solid rgba(198,243,107,.14);border-radius:10px;width:100%;height:auto;touch-action:none}
+        .hud{display:flex;justify-content:space-between;align-items:center;margin:10px 4px 0 4px;font-size:13px;color:#d4e5cf}
         .controls{display:flex;gap:8px;justify-content:center;margin-top:10px}
-        button{background:#11324a;border:1px solid rgba(255,255,255,0.04);color:#cfe7ff;padding:8px 12px;border-radius:8px;font-weight:600;cursor:pointer}
+        button{background:#273a31;border:1px solid rgba(198,243,107,.22);color:#e4eedf;padding:8px 12px;border-radius:8px;font-weight:600;cursor:pointer}
         button:active{transform:translateY(1px)}
         .big{font-size:14px;padding:10px 14px}
         .overlay{position:relative;margin-top:10px;padding:10px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);font-size:13px}
         .hint{opacity:.8;font-size:12px;margin-top:6px}
         .touch-row{display:flex;gap:8px;justify-content:center}
-        .touch{flex:1;padding:10px;border-radius:8px;background:#0d2434;color:#bfe7ff;font-weight:700}
+        .touch{flex:1;padding:10px;border-radius:8px;background:#20312b;color:#d6e8cd;font-weight:700}
         @media (max-width: 480px){
             .wrap{padding:12px;}
             .card{padding:12px;}

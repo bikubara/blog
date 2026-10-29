@@ -45,7 +45,7 @@
 		.cart-count { display: inline-grid; min-width: 20px; height: 20px; margin-left: 6px; padding: 0 5px; place-items: center; border-radius: 20px; background: var(--accent); color: #172117; font-size: 11px; }
 		.page { width: min(1240px, calc(100% - 40px)); margin: auto; }
 		.hero { min-height: 360px; margin: 30px 0 24px; padding: clamp(26px, 5vw, 58px); position: relative; display: flex; align-items: center; overflow: hidden; border: 1px solid var(--line); border-radius: 22px; background: #23322d; }
-		.hero::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(13, 23, 21, .97) 0%, rgba(13, 23, 21, .83) 42%, rgba(13, 23, 21, .12) 100%), url("https://images.unsplash.com/photo-1473968512647-3e447244af8f?auto=format&fit=crop&w=1800&q=85") center 48% / cover; }
+		.hero::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at 82% 45%, rgba(198,243,107,.18), transparent 34%), radial-gradient(ellipse at 100% 100%, rgba(73,132,103,.28), transparent 42%), linear-gradient(115deg, #101b19, #1d3028 58%, #263b30); }
 		.hero-content { max-width: 590px; position: relative; z-index: 1; }
 		.eyebrow { display: inline-flex; align-items: center; gap: 8px; color: var(--accent); font-size: 11px; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
 		.eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 14px var(--accent); }
@@ -119,7 +119,7 @@
 			.header-inner { min-height: 64px; gap: 14px; }
 			.nav-links { display: none; }
 			.hero { min-height: 335px; margin-top: 16px; }
-			.hero::before { background: linear-gradient(90deg, rgba(13,23,21,.96), rgba(13,23,21,.7) 75%, rgba(13,23,21,.35)), url("https://images.unsplash.com/photo-1473968512647-3e447244af8f?auto=format&fit=crop&w=1200&q=80") center / cover; }
+			.hero::before { background: radial-gradient(ellipse at 85% 50%, rgba(198,243,107,.16), transparent 34%), linear-gradient(115deg, #101b19, #1d3028 65%, #263b30); }
 			.feature-strip { grid-template-columns: 1fr; gap: 7px; margin-bottom: 26px; }
 			.feature { min-height: 58px; }
 			.shop-toolbar { align-items: stretch; flex-direction: column; }
@@ -155,7 +155,7 @@
 			<div class="hero-content">
 				<span class="eyebrow">Parts for your next flight</span>
 				<h1 id="hero-title">Build it. Tune it.<br />Take it further.</h1>
-				<p>Thoughtful components for FPV pilots, aerial creators, and hands-on builders. Find the right parts for a dependable setup.</p>
+				<p>FPV drone parts for hands-on builders. Find the motors, electronics, wiring, and hardware to assemble and maintain your freestyle quad.</p>
 				<a class="hero-cta" href="#catalog">Explore the parts <span aria-hidden="true">↘</span></a>
 			</div>
 		</section>
@@ -172,7 +172,7 @@
 				<label class="search-wrap"><span aria-hidden="true">⌕</span><input id="product-search" type="search" placeholder="Search parts or specs…" aria-label="Search drone parts" /></label>
 			</div>
 			<nav class="category-nav" aria-label="Jump to a product category">
-				<a href="#motors">Motors &amp; props</a><a href="#electronics">Flight electronics</a><a href="#frames">Frames &amp; hardware</a><a href="#power">Batteries &amp; power</a><a href="#camera">Cameras &amp; FPV</a>
+				<a href="#motors">Motors &amp; props</a><a href="#electronics">Flight electronics</a><a href="#frames">Frames &amp; hardware</a><a href="#power">Batteries &amp; power</a><a href="#assembly">FPV assembly parts</a>
 			</nav>
 			<div id="product-catalog"></div>
 			<div class="empty-state" id="empty-state" role="status">No parts match that search. Try another name or specification.</div>
@@ -192,10 +192,10 @@
 			<div class="company-summary">
 				<p><strong>Brief:</strong> F4 Drones is a drone-parts and build-support brand concept for pilots and makers who want carefully described components, practical guidance, and the confidence to create a setup that suits their flying.</p>
 				<h3>Our fuller story</h3>
-				<p>We bring the essentials of a drone build into one approachable place: propulsion, frames, flight electronics, power, and FPV equipment. Whether you are replacing a worn propeller or planning a custom quad, our aim is to make the options easier to compare and the next step easier to understand.</p>
+				<p>We bring the essentials of an FPV drone build into one approachable place: propulsion, frames, flight electronics, power, wiring, and FPV video parts. Whether you are replacing a worn propeller or assembling a custom freestyle quad, our aim is to make the options easier to compare and the next step easier to understand.</p>
 				<p>F4 Drones puts clear specifications and responsible setup advice first. We encourage builders to check frame dimensions, connector types, voltage ranges, firmware support, and local regulations before ordering or flying. A component that fits your mission—and the rest of your build—is more useful than a part chosen by headline specs alone.</p>
 				<h3>What we aim to offer</h3>
-				<ul><li>A focused range of parts for custom FPV and camera-drone builds.</li><li>Useful product details to help with fit and compatibility decisions.</li><li>Friendly guidance for maintenance, upgrades, and learning the basics.</li><li>A community-minded approach to safe, responsible flying.</li></ul>
+				<ul><li>A focused range of parts for custom FPV quadcopter builds.</li><li>Useful product details to help with fit and compatibility decisions.</li><li>Friendly guidance for assembly, maintenance, and upgrades.</li><li>A community-minded approach to safe, responsible flying.</li></ul>
 				<div class="dialog-note">This is a sample company profile for the storefront design. Replace it with F4 Drones’ verified history, location, policies, and contact details before publishing as a real business.</div>
 			</div>
 		</div>
@@ -213,41 +213,77 @@
 	<script>
 		const categories = [
 			{ id: "motors", title: "Motors & props", description: "Smooth power, efficient thrust, and dependable spares.", products: [
-				{ name: "AeroCore 2207 Brushless Motor", type: "Motor · 1750 KV", price: 24.9, tag: "Popular", detail: "For 5-inch freestyle builds; check your battery voltage and frame clearance.", image: "photo-1508615070457-7baeba4003ab" },
-				{ name: "AeroCore 2306 Brushless Motor", type: "Motor · 1950 KV", price: 22.5, tag: "Freestyle", detail: "Responsive 5-inch motor option with a durable bell and standard mounting pattern.", image: "photo-1473968512647-3e447244af8f" },
-				{ name: "TriBlade 5-inch Prop Set", type: "Propellers · 4 pairs", price: 8.95, tag: "Field essential", detail: "Tri-blade set for common 5-inch builds; includes clockwise and counter-clockwise props.", image: "photo-1506947411487-a56738267384" },
-				{ name: "MicroWhoop 1204 Motor Pair", type: "Motor · 5000 KV", price: 19.0, tag: "Lightweight", detail: "Compact motor pair for compatible micro frames; confirm shaft and connector sizes.", image: "photo-1527977966376-1c8408f9f108" }
+				{ name: "AeroCore 2207 Brushless Motor", type: "Motor · 1750 KV", price: 24.9, tag: "Popular", detail: "For 5-inch freestyle builds; check your battery voltage and frame clearance." },
+				{ name: "AeroCore 2306 Brushless Motor", type: "Motor · 1950 KV", price: 22.5, tag: "Freestyle", detail: "Responsive 5-inch motor option with a durable bell and standard mounting pattern." },
+				{ name: "TriBlade 5-inch Prop Set", type: "Propellers · 4 pairs", price: 8.95, tag: "Field essential", detail: "Tri-blade set for common 5-inch builds; includes clockwise and counter-clockwise props." },
+				{ name: "MicroWhoop 1204 Motor Pair", type: "Motor · 5000 KV", price: 19.0, tag: "Lightweight", detail: "Compact motor pair for compatible micro frames; confirm shaft and connector sizes." }
 			]},
 			{ id: "electronics", title: "Flight electronics", description: "The control and connection layer at the heart of your aircraft.", products: [
-				{ name: "Apex F7 Flight Controller", type: "Flight controller · F7", price: 59.0, tag: "Builder pick", detail: "32-bit controller with a 30.5 × 30.5 mm mounting pattern and onboard OSD support.", image: "photo-1518770660439-4636190af475" },
-				{ name: "4-in-1 45A ESC", type: "ESC · 3–6S", price: 54.5, tag: "4-in-1", detail: "Four-channel speed controller for compatible builds; verify current draw and firmware.", image: "photo-1581091226825-a6a2a5aee158" },
-				{ name: "Nano GPS & Compass Module", type: "Navigation · GPS", price: 32.0, tag: "Navigation", detail: "Compact positioning module with compass for supported flight stacks and firmware.", image: "photo-1519389950473-47ba0277781c" },
-				{ name: "ELRS Nano Receiver", type: "Receiver · 2.4 GHz", price: 18.75, tag: "Low latency", detail: "Small serial receiver for compatible ExpressLRS radio systems; antenna included.", image: "photo-1555617981-dac3880eac6e" }
+				{ name: "Apex F7 Flight Controller", type: "Flight controller · F7", price: 59.0, tag: "Builder pick", detail: "32-bit controller with a 30.5 × 30.5 mm mounting pattern and onboard OSD support." },
+				{ name: "4-in-1 45A ESC", type: "ESC · 3–6S", price: 54.5, tag: "4-in-1", detail: "Four-channel speed controller for compatible builds; verify current draw and firmware." },
+				{ name: "Nano GPS & Compass Module", type: "Navigation · GPS", price: 32.0, tag: "Navigation", detail: "Compact positioning module with compass for supported flight stacks and firmware." },
+				{ name: "ELRS Nano Receiver", type: "Receiver · 2.4 GHz", price: 18.75, tag: "Low latency", detail: "Small serial receiver for compatible ExpressLRS radio systems; antenna included." }
 			]},
-			{ id: "frames", title: "Frames & hardware", description: "A solid foundation, plus the small parts that keep a build together.", products: [
-				{ name: "Ranger 5-inch Carbon Frame", type: "Frame · 5-inch", price: 69.0, tag: "Freestyle", detail: "Durable carbon-fiber frame with a 30.5 mm stack mount and replaceable arms.", image: "photo-1473968512647-3e447244af8f" },
-				{ name: "CineLite 3.5-inch Frame Kit", type: "Frame · 3.5-inch", price: 48.0, tag: "Cinematic", detail: "Compact frame layout for lightweight builds; review prop and camera clearance.", image: "photo-1506947411487-a56738267384" },
-				{ name: "M3 Build Hardware Pack", type: "Hardware · 60 pieces", price: 12.5, tag: "Workshop", detail: "Assorted low-profile screws, nuts, and soft mounts for common drone repairs.", image: "photo-1581092160562-40aa08e78837" },
-				{ name: "Landing Pad & Tool Mat", type: "Workshop · 55 cm", price: 21.0, tag: "Packable", detail: "Foldable field mat to help keep a small aircraft and loose hardware off the ground.", image: "photo-1500530855697-b586d89ba3ee" }
+			{ id: "frames", title: "Frames & hardware", description: "FPV freestyle frames and the small parts that keep a build together.", products: [
+				{ name: "Ranger 5-inch Carbon Frame", type: "Frame · 5-inch", price: 69.0, tag: "Freestyle", detail: "Durable carbon-fiber frame with a 30.5 mm stack mount and replaceable arms." },
+				{ name: "Freestyle 3.5-inch Frame Kit", type: "Frame · 3.5-inch", price: 48.0, tag: "Compact FPV", detail: "Compact freestyle frame layout for 3.5-inch props; check motor and stack fit before assembly." },
+				{ name: "M3 Build Hardware Pack", type: "Hardware · 60 pieces", price: 12.5, tag: "Workshop", detail: "Assorted low-profile screws, nuts, and soft mounts for common drone repairs." },
+				{ name: "FC Stack Soft-Mount Kit", type: "Mounting · M3 hardware", price: 7.5, tag: "Vibration control", detail: "Silicone gummies, spacers, and nuts to isolate and secure a compatible flight-controller stack." }
 			]},
 			{ id: "power", title: "Batteries & power", description: "Power options and charging essentials for a well-planned session.", products: [
-				{ name: "LiPo 1300 mAh 6S Pack", type: "Battery · 22.2 V", price: 34.0, tag: "6S power", detail: "High-discharge pack for compatible 5-inch builds; use a balance charger and inspect before use.", image: "photo-1609091839311-d5365f9ff1c5" },
-				{ name: "LiPo 850 mAh 4S Pack", type: "Battery · 14.8 V", price: 23.5, tag: "Compact", detail: "Compact pack for suitable 4S aircraft; verify connector, dimensions, and current needs.", image: "photo-1581092160607-ee22621dd758" },
-				{ name: "Balance Charger 2–6S", type: "Charger · AC powered", price: 46.0, tag: "Workshop", detail: "Multi-cell balance charger with selectable charge modes and a clear status display.", image: "photo-1581092335878-2d9ff86ca2bf" },
-				{ name: "XT60 Silicone Lead Set", type: "Power · 3 pairs", price: 9.5, tag: "Spare parts", detail: "Flexible silicone wire and XT60 connectors for repairs by a suitably experienced builder.", image: "photo-1558618666-fcd25c85cd64" }
+				{ name: "LiPo 1300 mAh 6S Pack", type: "Battery · 22.2 V", price: 34.0, tag: "6S power", detail: "High-discharge pack for compatible 5-inch builds; use a balance charger and inspect before use." },
+				{ name: "LiPo 850 mAh 4S Pack", type: "Battery · 14.8 V", price: 23.5, tag: "Compact", detail: "Compact pack for suitable 4S aircraft; verify connector, dimensions, and current needs." },
+				{ name: "Balance Charger 2–6S", type: "Charger · AC powered", price: 46.0, tag: "Workshop", detail: "Multi-cell balance charger with selectable charge modes and a clear status display." },
+				{ name: "XT60 Silicone Lead Set", type: "Power · 3 pairs", price: 9.5, tag: "Spare parts", detail: "Flexible silicone wire and XT60 connectors for repairs by a suitably experienced builder." }
 			]},
-			{ id: "camera", title: "Cameras & FPV", description: "See your setup clearly, from onboard camera to the pilot view.", products: [
-				{ name: "Vista Mini FPV Camera", type: "Camera · 1200 TVL", price: 29.0, tag: "Low-light", detail: "Compact analog camera with adjustable settings for compatible FPV systems.", image: "photo-1516035069371-29a1b244cc32" },
-				{ name: "Digital Air Unit Kit", type: "FPV video · HD", price: 149.0, tag: "HD video", detail: "Digital video transmitter and camera kit; confirm goggles, power, and antenna compatibility.", image: "photo-1519389950473-47ba0277781c" },
-				{ name: "Low-Latency FPV Goggles", type: "FPV · 5.8 GHz", price: 119.0, tag: "Pilot gear", detail: "Diversity receiver goggles with adjustable focus and a comfortable field strap.", image: "photo-1524143986875-3b098d78b363" },
-				{ name: "RHCP Patch & Omni Antenna Set", type: "Antenna · 5.8 GHz", price: 26.0, tag: "Signal kit", detail: "Circular-polarized antenna pair; match connector type and polarization across your link.", image: "photo-1518770660439-4636190af475" }
+			{ id: "assembly", title: "FPV assembly parts", description: "Wiring, mounting, and video components for putting your FPV quad together.", products: [
+				{ name: "FPV Nano Camera", type: "Camera · Analog FPV", price: 29.0, tag: "Front end", detail: "Compact FPV camera with adjustable image settings; check frame width and mounting options." },
+				{ name: "5.8 GHz Video Transmitter", type: "VTX · 25–800 mW", price: 34.0, tag: "Video link", detail: "Switchable-power analog VTX with SmartAudio support; follow local RF power rules and add an antenna before powering." },
+				{ name: "XT60 Battery Pigtail", type: "Power lead · 12 AWG", price: 6.5, tag: "Solder-on", detail: "Pre-tinned silicone battery lead for an experienced builder to solder to a compatible ESC." },
+				{ name: "Low-ESR Capacitor Set", type: "Power filtering · 35 V", price: 5.0, tag: "Noise reduction", detail: "Capacitors for reducing electrical noise on suitable builds; confirm voltage rating and polarity." },
+				{ name: "FPV Battery Strap Pair", type: "Frame hardware · 20 mm", price: 8.0, tag: "Secure fit", detail: "Non-slip hook-and-loop straps to secure a battery to a compatible FPV frame." },
+				{ name: "Silicone Wire & Heat-Shrink Kit", type: "Wiring · Assorted", price: 11.5, tag: "Build bench", detail: "Flexible wire and heat-shrink for tidy FPV build wiring; use suitable soldering safety practices." }
 			]}
 		];
 
 		const money = value => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(value);
 		const catalog = document.getElementById("product-catalog");
 		const cart = new Map();
-		const catalogImage = product => `https://images.unsplash.com/${product.image}?auto=format&fit=crop&w=720&h=480&q=78`;
+		function catalogImage(product) {
+			const name = product.name.toLowerCase();
+			let art;
+			if (name.includes("motor")) {
+				art = `<ellipse cx="250" cy="178" rx="103" ry="105" fill="#17201e" stroke="#62776a" stroke-width="8"/><ellipse cx="250" cy="178" rx="77" ry="79" fill="#293630" stroke="#aebcae" stroke-width="4"/><circle cx="250" cy="178" r="47" fill="#111917" stroke="#c6f36b" stroke-width="6"/><circle cx="250" cy="178" r="18" fill="#788b7d"/><circle cx="250" cy="94" r="7" fill="#c6f36b"/><circle cx="250" cy="262" r="7" fill="#c6f36b"/><circle cx="166" cy="178" r="7" fill="#c6f36b"/><circle cx="334" cy="178" r="7" fill="#c6f36b"/><path d="M250 131v29m0 36v29m-47-47h29m36 0h29" stroke="#89998e" stroke-width="8" stroke-linecap="round"/><text x="250" y="315" text-anchor="middle" class="caption">BRUSHLESS MOTOR</text>`;
+			} else if (name.includes("prop")) {
+				art = `<g transform="translate(250 174)"><path d="M0-29C-13-83-18-164 10-168c30-4 43 84 19 145z" fill="#c6f36b"/><path d="M25 14c50-25 127-51 138-25 12 28-68 70-133 51z" fill="#bddb8b"/><path d="M-25 14c-37 40-94 95-115 75-20-19 38-92 94-112z" fill="#91aa83"/><circle r="35" fill="#35483d" stroke="#d5e0d1" stroke-width="5"/><circle r="10" fill="#111917"/></g><text x="250" y="315" text-anchor="middle" class="caption">5-INCH TRI-BLADE</text>`;
+			} else if (name.includes("frame")) {
+				art = `<path d="M208 152 126 78 90 114l76 80-76 80 36 36 81-82 83 82 36-36-80-80 80-80-36-36-83 74z" fill="#26322e" stroke="#c6f36b" stroke-width="9" stroke-linejoin="round"/><rect x="213" y="137" width="74" height="74" rx="12" fill="#101715" stroke="#9cae9f" stroke-width="5"/><circle cx="113" cy="98" r="12" fill="#111917" stroke="#c6f36b" stroke-width="5"/><circle cx="387" cy="98" r="12" fill="#111917" stroke="#c6f36b" stroke-width="5"/><circle cx="113" cy="292" r="12" fill="#111917" stroke="#c6f36b" stroke-width="5"/><circle cx="387" cy="292" r="12" fill="#111917" stroke="#c6f36b" stroke-width="5"/><text x="250" y="326" text-anchor="middle" class="caption">FPV QUAD FRAME</text>`;
+			} else if (name.includes("battery") || name.includes("lipo")) {
+				art = `<path d="M165 104h164a24 24 0 0 1 24 24v111a24 24 0 0 1-24 24H165a24 24 0 0 1-24-24V128a24 24 0 0 1 24-24z" fill="#323a35" stroke="#c6f36b" stroke-width="6"/><path d="M189 114v139m47-139v139m47-139v139" stroke="#718174" stroke-width="3"/><rect x="353" y="145" width="25" height="77" rx="8" fill="#171d1a" stroke="#a8b8aa" stroke-width="4"/><path d="M378 164h32v39h-32" fill="none" stroke="#d7a24e" stroke-width="8"/><path d="M162 145h175M162 196h175" stroke="#1c2520" stroke-width="8"/><text x="250" y="310" text-anchor="middle" class="caption">FPV LIPO POWER</text>`;
+			} else if (name.includes("charger")) {
+				art = `<rect x="130" y="94" width="240" height="150" rx="20" fill="#28332e" stroke="#829487" stroke-width="6"/><rect x="158" y="120" width="120" height="70" rx="8" fill="#101917" stroke="#c6f36b" stroke-width="4"/><path d="M173 166h27l12-23 15 30 12-15h25" fill="none" stroke="#c6f36b" stroke-width="4"/><circle cx="326" cy="139" r="13" fill="#c6f36b"/><circle cx="326" cy="184" r="13" fill="#53665a"/><path d="M176 216h148" stroke="#66766b" stroke-width="8" stroke-linecap="round"/><text x="250" y="300" text-anchor="middle" class="caption">BALANCE CHARGER</text>`;
+			} else if (name.includes("camera")) {
+				art = `<path d="M153 129h194a22 22 0 0 1 22 22v82a22 22 0 0 1-22 22H153a22 22 0 0 1-22-22v-82a22 22 0 0 1 22-22z" fill="#252f2a" stroke="#89998d" stroke-width="6"/><path d="M176 129l18-24h42l18 24" fill="#343f38" stroke="#89998d" stroke-width="5"/><circle cx="250" cy="192" r="64" fill="#111917" stroke="#c6f36b" stroke-width="7"/><circle cx="250" cy="192" r="43" fill="#263b37" stroke="#6f8d7b" stroke-width="7"/><circle cx="250" cy="192" r="24" fill="#0a1212" stroke="#9fd5c4" stroke-width="5"/><circle cx="242" cy="184" r="8" fill="#e6fff2" opacity=".8"/><text x="250" y="310" text-anchor="middle" class="caption">FPV CAMERA OPTICS</text>`;
+			} else if (name.includes("antenna")) {
+				art = `<path d="M190 238Q186 170 155 108M310 238Q316 161 353 101" fill="none" stroke="#c6f36b" stroke-width="13" stroke-linecap="round"/><path d="M151 109l9-29m193 21 14-27" stroke="#dce6db" stroke-width="6" stroke-linecap="round"/><rect x="170" y="236" width="40" height="24" rx="5" fill="#708276"/><rect x="291" y="236" width="40" height="24" rx="5" fill="#708276"/><path d="M188 243h-18v36m140-36h18v36" fill="none" stroke="#a9b5aa" stroke-width="7"/><text x="250" y="322" text-anchor="middle" class="caption">5.8 GHz FPV ANTENNA</text>`;
+			} else if (name.includes("wire") || name.includes("pigtail") || name.includes("xt60")) {
+				art = `<path d="M175 117C175 226 322 107 322 231" fill="none" stroke="#dc4f4f" stroke-width="15" stroke-linecap="round"/><path d="M205 117C205 208 292 130 292 231" fill="none" stroke="#e8d34e" stroke-width="15" stroke-linecap="round"/><rect x="148" y="96" width="84" height="47" rx="10" fill="#343c36" stroke="#9faea1" stroke-width="4"/><path d="M164 109h22v20h-22zm31 0h22v20h-22z" fill="#d5a74a"/><rect x="274" y="221" width="95" height="47" rx="10" fill="#313a35" stroke="#a9b8ab" stroke-width="4"/><path d="M292 234h25v20h-25zm35 0h25v20h-25z" fill="#d5a74a"/><text x="250" y="318" text-anchor="middle" class="caption">SILICONE BUILD WIRING</text>`;
+			} else if (name.includes("strap")) {
+				art = `<g transform="rotate(-14 250 180)"><rect x="168" y="84" width="164" height="210" rx="40" fill="#27322d" stroke="#87998b" stroke-width="6"/><rect x="207" y="68" width="87" height="241" rx="25" fill="#c6f36b"/><path d="M209 118h83M209 154h83M209 190h83M209 226h83" stroke="#5d7841" stroke-width="5"/><rect x="218" y="89" width="60" height="199" rx="18" fill="none" stroke="#e1f6c0" stroke-width="3" stroke-dasharray="7 8"/></g><text x="250" y="324" text-anchor="middle" class="caption">BATTERY RETENTION STRAP</text>`;
+			} else if (name.includes("capacitor")) {
+				art = `<rect x="130" y="153" width="240" height="70" rx="12" fill="#25312b" stroke="#9aab9e" stroke-width="5"/><rect x="185" y="112" width="52" height="150" rx="21" fill="#313d35" stroke="#c6f36b" stroke-width="5"/><rect x="262" y="125" width="52" height="137" rx="21" fill="#313d35" stroke="#9fb091" stroke-width="5"/><path d="M201 113v-25m20 25V88m57 38v-30m20 30V96" stroke="#d6b45e" stroke-width="5"/><text x="250" y="315" text-anchor="middle" class="caption">LOW-ESR CAPACITORS</text>`;
+			} else if (name.includes("gps")) {
+				art = `<rect x="162" y="104" width="176" height="166" rx="16" fill="#27332c" stroke="#c6f36b" stroke-width="6"/><rect x="198" y="139" width="104" height="95" rx="10" fill="#111917" stroke="#82988a" stroke-width="4"/><path d="M250 156v62m-31-31h62m-53-22 44 44m0-44-44 44" stroke="#9eb4a1" stroke-width="4"/><circle cx="250" cy="187" r="13" fill="#c6f36b"/><path d="M178 115h-17m177 0h17m-177 146h-17m177 0h17" stroke="#d8e5d7" stroke-width="5"/><text x="250" y="316" text-anchor="middle" class="caption">GPS / COMPASS MODULE</text>`;
+			} else if (name.includes("receiver")) {
+				art = `<rect x="153" y="126" width="194" height="116" rx="16" fill="#26352d" stroke="#c6f36b" stroke-width="5"/><rect x="208" y="151" width="83" height="64" rx="7" fill="#111917" stroke="#849789" stroke-width="4"/><path d="M168 142h-21v-25m222 25h21v-25M168 225h-21v25m222-25h21v25" fill="none" stroke="#d4a84e" stroke-width="5"/><path d="M225 151v-16m18 16v-16m18 16v-16m18 16v-16m-54 80v-16m18 16v-16m18 16v-16m18 16v-16" stroke="#e1bd60" stroke-width="4"/><text x="250" y="309" text-anchor="middle" class="caption">ELRS RECEIVER</text>`;
+			} else if (name.includes("flight controller") || name.includes("esc")) {
+				art = `<rect x="135" y="91" width="230" height="175" rx="18" fill="#25342c" stroke="#c6f36b" stroke-width="6"/><rect x="211" y="129" width="78" height="72" rx="9" fill="#101815" stroke="#879b8c" stroke-width="5"/><rect x="164" y="122" width="28" height="25" rx="4" fill="#607467"/><rect x="307" y="122" width="28" height="25" rx="4" fill="#607467"/><rect x="164" y="211" width="28" height="25" rx="4" fill="#607467"/><rect x="307" y="211" width="28" height="25" rx="4" fill="#607467"/><path d="M192 135h19m78 0h18m-115 87h19m78 0h18m-69-91v-28m0 100v23" stroke="#d4aa4f" stroke-width="5"/><circle cx="250" cy="165" r="12" fill="#c6f36b"/><text x="250" y="315" text-anchor="middle" class="caption">FPV FLIGHT ELECTRONICS</text>`;
+			} else {
+				art = `<rect x="144" y="99" width="212" height="160" rx="22" fill="#26352d" stroke="#c6f36b" stroke-width="6"/><rect x="196" y="135" width="108" height="88" rx="10" fill="#101815" stroke="#83978a" stroke-width="4"/><path d="M167 118h-22m210 0h22m-210 122h-22m210 0h22" stroke="#d6b354" stroke-width="6"/><text x="250" y="310" text-anchor="middle" class="caption">FPV BUILD COMPONENT</text>`;
+			}
+			const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 350"><defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#263a30"/><stop offset="1" stop-color="#111a18"/></linearGradient><radialGradient id="glow"><stop stop-color="#c6f36b" stop-opacity=".15"/><stop offset="1" stop-color="#c6f36b" stop-opacity="0"/></radialGradient><style>.caption{font:700 12px Arial,sans-serif;letter-spacing:2px;fill:#dce7dc}</style></defs><rect width="500" height="350" fill="url(#bg)"/><circle cx="250" cy="165" r="190" fill="url(#glow)"/><path d="M0 292h500M0 318h500" stroke="#d6e5d7" stroke-opacity=".07"/><path d="M22 30h32M22 30v32M478 30h-32M478 30v32" fill="none" stroke="#c6f36b" stroke-opacity=".45" stroke-width="2"/><text x="30" y="52" fill="#c6f36b" font-family="Arial,sans-serif" font-size="10" font-weight="700" letter-spacing="2">F4 / FPV PARTS</text>${art}</svg>`;
+			return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+		}
 
 		function renderCatalog(query = "") {
 			const term = query.trim().toLowerCase();
